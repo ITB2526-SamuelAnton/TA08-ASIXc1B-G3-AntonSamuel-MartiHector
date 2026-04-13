@@ -2,7 +2,8 @@
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
-    <title>EcoCalc | ITB Leaks Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoCalc | ITB Leaks Auditoria</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -10,49 +11,108 @@
         <nav class="navbar">
             <div class="logo">ITB<span>LEAKS</span></div>
             <ul class="nav-links">
-                <li><a href="#data">Data Cleaning</a></li>
+                <li><a href="#data-cleaning">Data Cleaning</a></li>
                 <li><a href="#calc">Calculadora F3</a></li>
-                <li><a href="#estrategia">Pla 30%</a></li>
+                <li><a href="#estrategia">Pla de Reducció</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="hero">
-            <h1>Anàlisi de Sostenibilitat <span class="gradient-text">ITB Leaks</span></h1>
-            <p>Basat en l'auditoria de factures i consums d'aigua reals.</p>
+            <h1>Auditoria Energètica <span class="gradient-text">Fase 3</span></h1>
+            <p>Anàlisi basat en factures desclassificades d'aigua, energia i consumibles.</p>
         </section>
+
         <section id="data-cleaning" class="container">
-            <h2>Indicadors Clau (Fase 1.2: Data Cleaning)</h2>
-            <div id="grid-asg" class="results-grid">
-                <p>Carregant dades de l'auditoria...</p>
-            </div>
+            <h2>Indicadors Clau (Fase 1.2)</h2>
+            <div id="grid-asg" class="results-grid"></div>
         </section>
 
         <section id="calc" class="container">
             <div class="card-input">
-                <h3>Calculadora d'Impacte (Fase 3)</h3>
+                <h3>Calculadora d'Eficiència</h3>
                 <div class="input-grid">
                     <div class="group">
-                        <label>Consum Aigua Basal (L/h)</label>
+                        <label>Flux Aigua Basal (L/h)</label>
                         <input type="number" id="input-aigua" value="193">
                     </div>
                     <div class="group">
-                        <label>Recanvis de Material</label>
+                        <label>Recanvis Anuals (unitats)</label>
                         <input type="number" id="input-recanvis" value="170">
                     </div>
                     <div class="group">
-                        <label>Hores activitat curs</label>
+                        <label>Hores Lectives/Any</label>
                         <input type="number" id="input-hores" value="1800">
                     </div>
+                    <div class="group">
+                        <label>Preu Energia (€/kWh)</label>
+                        <input type="number" id="input-preu-elect" value="0.18" step="0.01">
+                    </div>
+                    <div class="group">
+                        <label>Preu Aigua (€/m³)</label>
+                        <input type="number" id="input-preu-aigua" value="2.50" step="0.10">
+                    </div>
+                    <div class="group">
+                        <label>Cost Recanvi Rotulador (€/u.)</label>
+                        <input type="number" id="input-cost-recanvi" value="0.71" step="0.01">
+                    </div>
                 </div>
-                <button onclick="calcularF3()" class="btn-calc">Calcular Previsions i Reducció</button>
+                <button onclick="calcularF3()" class="btn-calc">Simular Tendències i Reducció</button>
             </div>
 
-            <div id="results-f3" class="results-grid">
-                </div>
+            <div id="results-f3" class="results-grid"></div>
+
+            <div id="chart-container" style="display:none;" class="chart-card">
+                <h4>EVOLUCIÓ MENSUAL DEL CONSUM ELÈCTRIC (KWH)</h4>
+                <canvas id="chartElec" height="100"></canvas>
+            </div>
+        </section>
+
+        <section id="estrategia" class="container">
+            <h2>Pla de Reducció (Objectiu 30% en 3 anys)</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Acció Concreta</th>
+                            <th>Objectiu Mesurable</th>
+                            <th>Indicador</th>
+                            <th>Cronograma</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tall automàtic d'aigua nocturna</td>
+                            <td>Eliminar el flux basal de 193 L/h</td>
+                            <td>m³/any · €/any</td>
+                            <td>Any 1</td>
+                        </tr>
+                        <tr>
+                            <td>Substitució de circuits (F046)</td>
+                            <td>Optimització elèctrica del 15%</td>
+                            <td>kWh/mes · €/mes</td>
+                            <td>Any 1-2</td>
+                        </tr>
+                        <tr>
+                            <td>Economia Circular (F036)</td>
+                            <td>Ús de recanvis en comptes de nous</td>
+                            <td>€/any · kg plàstic</td>
+                            <td>Any 1-3</td>
+                        </tr>
+                        <tr>
+                            <td>Neteja a granel (F055)</td>
+                            <td>Reducció de residus d'envasos</td>
+                            <td>€/any · envasos/any</td>
+                            <td>Any 2</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/calculator.js"></script>
 </body>
 </html>
