@@ -6,17 +6,25 @@
   },
   "circular_economy": {
     "marker_refills": 170,
-    "plastic_saved_kg": 2.5,
+    "marker_price_eur": 0.71,
+    "paper_reams": 100,
+    "paper_price_eur": 5.47,
+    "pilot_markers": 115,
+    "pilot_price_eur": 0.89,
     "ods": 12
   },
   "energy_efficiency": {
     "ac_compressor_w": 400,
-    "new_modules": 16,
+    "repair_cost_eur": 348.48,
+    "circuit_upgrade_eur": 2548.02,
     "ods": 7
   },
   "social_health": {
     "bulk_soap_liters": 15,
-    "paper_towels_fardos": 10,
+    "soap_price_eur": 8.5,
+    "paper_towel_fardos": 10,
+    "paper_towel_price_eur": 18.25,
+    "cleaning_cost_eur": 750.26,
     "ods": 3
   }
 }
