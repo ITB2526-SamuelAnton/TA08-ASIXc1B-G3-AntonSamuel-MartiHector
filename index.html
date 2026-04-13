@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoCalc | ITB Leaks Edition</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">ITB<span>LEAKS</span></div>
+            <ul class="nav-links">
+                <li><a href="#data">Data Cleaning</a></li>
+                <li><a href="#calc">Calculadora F3</a></li>
+                <li><a href="#estrategia">Pla 30%</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Anàlisi de Sostenibilitat <span class="gradient-text">ITB Leaks</span></h1>
+            <p>Basat en l'auditoria de factures i consums d'aigua reals.</p>
+        </section>
+
+        <section id="data" class="container">
+            <h2>1.2 Data Cleaning & Indicadors</h2>
+            <div class="results-grid">
+                <div class="res-card">
+                    <h4>Night-flow Leak (Ambiental)</h4>
+                    <p>193 L/h</p>
+                    <small>Flux basal detectat a les 3:00 AM</small>
+                </div>
+                <div class="res-card">
+                    <h4>Economia Circular</h4>
+                    <p>170 Unitats</p>
+                    <small>Recanvis de retoladors vs plàstic nou</small>
+                </div>
+            </div>
+        </section>
+
+        <section id="calc" class="container">
+            <div class="card-input">
+                <h3>Calculadora d'Impacte (Fase 3)</h3>
+                <div class="input-grid">
+                    <div class="group">
+                        <label>Consum Aigua Basal (L/h)</label>
+                        <input type="number" id="input-aigua" value="193">
+                    </div>
+                    <div class="group">
+                        <label>Recanvis de Material</label>
+                        <input type="number" id="input-recanvis" value="170">
+                    </div>
+                    <div class="group">
+                        <label>Hores activitat curs</label>
+                        <input type="number" id="input-hores" value="1800">
+                    </div>
+                </div>
+                <button onclick="calcularF3()" class="btn-calc">Calcular Previsions i Reducció</button>
+            </div>
+
+            <div id="results-f3" class="results-grid">
+                </div>
+        </section>
+    </main>
+    <script src="js/calculator.js"></script>
+</body>
+</html>

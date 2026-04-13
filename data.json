@@ -1,0 +1,22 @@
+{
+  "water_indicators": {
+    "basal_flow_lh": 193,
+    "peak_flow_lh": 540,
+    "ods": 6
+  },
+  "circular_economy": {
+    "marker_refills": 170,
+    "plastic_saved_kg": 2.5,
+    "ods": 12
+  },
+  "energy_efficiency": {
+    "ac_compressor_w": 400,
+    "new_modules": 16,
+    "ods": 7
+  },
+  "social_health": {
+    "bulk_soap_liters": 15,
+    "paper_towels_fardos": 10,
+    "ods": 3
+  }
+}
