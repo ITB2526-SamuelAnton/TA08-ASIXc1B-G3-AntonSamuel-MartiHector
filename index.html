@@ -32,42 +32,27 @@
         <section id="calc" class="container">
             <div class="card-input">
                 <h3>Calculadora d'Eficiència</h3>
+                <p class="calc-desc">Ajusta els paràmetres del centre per simular el consum anual amb estacionalitat real.</p>
                 <div class="input-grid">
-                    <div class="group">
-                        <label>Flux Aigua Basal (L/h)</label>
-                        <input type="number" id="input-aigua" value="193" min="1">
-                    </div>
                     <div class="group">
                         <label>Hores Lectives / Any</label>
                         <input type="number" id="input-hores" value="1800" min="1">
+                        <span class="input-hint">Base per calcular el consum elèctric</span>
                     </div>
                     <div class="group">
                         <label>Preu Energia (€/kWh)</label>
                         <input type="number" id="input-preu-elect" value="0.18" step="0.01" min="0.01">
+                        <span class="input-hint">Tarifa elèctrica actual del centre</span>
+                    </div>
+                    <div class="group">
+                        <label>Consum Mensual Aigua (m³/mes)</label>
+                        <input type="number" id="input-aigua-m3" value="150" min="1">
+                        <span class="input-hint">Consum mig mensual de l'edifici</span>
                     </div>
                     <div class="group">
                         <label>Preu Aigua (€/m³)</label>
                         <input type="number" id="input-preu-aigua" value="2.50" step="0.10" min="0.01">
-                    </div>
-                    <div class="group">
-                        <label>Recanvis Marcadors / Any</label>
-                        <input type="number" id="input-recanvis" value="170" min="0">
-                    </div>
-                    <div class="group">
-                        <label>Preu Recanvi (€/u.)</label>
-                        <input type="number" id="input-cost-recanvi" value="0.71" step="0.01" min="0.01">
-                    </div>
-                    <div class="group">
-                        <label>Resmes Paper A4 / Any</label>
-                        <input type="number" id="input-paper" value="100" min="0">
-                    </div>
-                    <div class="group">
-                        <label>Preu Resma Paper (€/u.)</label>
-                        <input type="number" id="input-cost-paper" value="5.47" step="0.01" min="0.01">
-                    </div>
-                    <div class="group">
-                        <label>Marcadors Pilot / Any</label>
-                        <input type="number" id="input-pilot" value="115" min="0">
+                        <span class="input-hint">Tarifa municipal vigent</span>
                     </div>
                 </div>
                 <div id="input-error" class="input-error" style="display:none;"></div>
@@ -94,7 +79,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-accent" id="fill1" data-target="40"></div>
                     </div>
-                    <p class="progress-desc" id="desc1">Eliminant la fuga de 193 L/h s'estalvien <strong id="estalvi-aigua-text">—</strong> m³/any i <strong id="estalvi-aigua-eur">—</strong> €/any · ODS 6</p>
+                    <p class="progress-desc">Eliminant la fuga de 193 L/h s'estalvien <strong id="estalvi-aigua-text">—</strong> m³/any i <strong id="estalvi-aigua-eur">—</strong> €/any · ODS 6</p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
@@ -104,7 +89,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-yellow" id="fill2" data-target="30"></div>
                     </div>
-                    <p class="progress-desc" id="desc2">Optimització elèctrica del 15% · Inversió ja realitzada: <strong>2.548,02 €</strong> · Estalvi estimat: <strong id="estalvi-elec-eur">—</strong> €/curs · ODS 7</p>
+                    <p class="progress-desc">Optimització elèctrica del 15% · Inversió ja realitzada: <strong>2.548,02 €</strong> · Estalvi estimat: <strong id="estalvi-elec-eur">—</strong> €/curs · ODS 7</p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
@@ -114,7 +99,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-purple" id="fill3" data-target="20"></div>
                     </div>
-                    <p class="progress-desc" id="desc3">Ús de recanvis i paper reciclat · Estalvi estimat: <strong id="estalvi-consu-eur">—</strong> €/any · ODS 12</p>
+                    <p class="progress-desc">Ús de recanvis i paper reciclat · Estalvi estimat: <strong id="estalvi-consu-eur">—</strong> €/any · ODS 12</p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">

@@ -2,6 +2,7 @@
   "water_indicators": {
     "basal_flow_lh": 193,
     "peak_flow_lh": 540,
+    "monthly_consumption_m3": 150,
     "ods": 6
   },
   "circular_economy": {
@@ -21,7 +22,7 @@
   },
   "social_health": {
     "bulk_soap_liters": 15,
-    "soap_price_eur": 8.5,
+    "soap_price_eur": 8.50,
     "paper_towel_fardos": 10,
     "paper_towel_price_eur": 18.25,
     "cleaning_cost_eur": 750.26,

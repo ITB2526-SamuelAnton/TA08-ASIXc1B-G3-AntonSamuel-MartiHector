@@ -55,7 +55,12 @@ h2 { padding-bottom: 15px; }
     border: 1px solid rgba(255,255,255,0.05); margin-bottom: 2rem;
 }
 
-/* CORRECCIÓ: 3 columnes fixes perquè els labels llargs no trenquin el layout */
+.calc-desc {
+    font-size: 0.85rem; color: var(--text-muted);
+    margin-bottom: 1.5rem; margin-top: -0.5rem;
+}
+
+/* 3 columnes fixes — els labels llargs no trenquen el layout */
 .input-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -67,6 +72,14 @@ h2 { padding-bottom: 15px; }
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-muted);
+}
+
+.input-hint {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    opacity: 0.7;
 }
 
 input {
@@ -152,18 +165,37 @@ input.input-invalid { border-color: #f87171; }
 .data-item .val  { font-size: 1.1rem; font-weight: 700; }
 .data-item .unit { font-size: 0.8rem; color: var(--text-muted); margin-left: 3px; }
 
-/* ── SAVING ROW (targeta verda gran) ── */
-.saving-row {
+/* ── SAVING CARD (targeta resum) ── */
+.saving-hero {
+    text-align: center;
+    padding: 1rem 0 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 1.2rem;
+}
+.saving-hero .label {
+    font-size: 0.75rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 0.4rem;
+}
+.saving-hero .big-number {
+    font-size: 2.8rem; font-weight: 800; color: var(--yellow);
+    line-height: 1;
+}
+.saving-hero .big-number span { font-size: 1.4rem; }
+
+.saving-breakdown {
     display: flex; justify-content: space-around;
-    flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem;
+    flex-wrap: wrap; gap: 1rem;
 }
-.saving-item { text-align: center; }
-.saving-item strong {
-    display: block; font-size: 0.75rem; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;
+.saving-breakdown-item { text-align: center; }
+.saving-breakdown-item .sb-label {
+    display: block; font-size: 0.7rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px;
 }
-.saving-item .big-val       { font-size: 1.6rem; font-weight: 800; color: var(--green); }
-.saving-item .big-val.euros { color: var(--yellow); }
+.saving-breakdown-item .sb-val {
+    font-size: 1.1rem; font-weight: 700; color: var(--green);
+}
+.saving-breakdown-item .sb-val.neutral { color: var(--text); }
 
 /* ── CHART ── */
 .chart-card {
