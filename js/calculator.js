@@ -552,7 +552,10 @@ function calcularReduccio() {
     const nouCostNeteja = base.neteja * (1 - redNeteja);
     const nouTotal      = nouCostAigua + nouCostElec + nouCostConsu + nouCostNeteja;
     const estalvi       = base.total - nouTotal;
-    const pctReduccio   = base.total > 0 ? (estalvi / base.total * 100) : 0;
+
+    // Reducció ponderada per categoria (25% cada una) — evita que neteja (62% cost) domini el %
+    // Cada categoria val igual en el marcador de progrés, independentment del seu pes econòmic
+    const pctReduccio = (redAigua + redElec + redConsu + redNeteja) / 4 * 100;
 
     // Actualitzar targetes resum
     const resDiv = document.getElementById('reduction-results');
