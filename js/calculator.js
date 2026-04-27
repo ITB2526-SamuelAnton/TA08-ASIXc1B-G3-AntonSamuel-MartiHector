@@ -1,4 +1,4 @@
-// ─── BACKUP DATA ─────────────────────────────────────────────────────────────
+// ─── BACKUP DATA ─────────────────────────────────────────────────────────
 const backupData = {
     water_indicators:  { basal_flow_lh: 193, peak_flow_lh: 540, monthly_consumption_m3: 150, ods: 6 },
     circular_economy:  { marker_refills: 170, marker_price_eur: 0.71, paper_reams: 100, paper_price_eur: 5.47, pilot_markers: 115, pilot_price_eur: 0.89, ods: 12 },
@@ -129,13 +129,24 @@ function renderizarIndicadores(data) {
     `;
 }
 
-// ─── VALIDATION ───────────────────────────────────────────────────────────────
+// ─── VALIDATION ─────────────────────────────────────────────────────────
 function validarInputs() {
     const fields = [
-        { id: 'input-hores',      nom: 'Teaching Hours' },
-        { id: 'input-preu-elect', nom: 'Energy Price' },
-        { id: 'input-aigua-m3',   nom: 'Monthly Water Consumption' },
-        { id: 'input-preu-aigua', nom: 'Water Price' },
+        { id: 'input-hores',        nom: 'Teaching Hours' },
+        { id: 'input-preu-elect',   nom: 'Energy Price' },
+        { id: 'input-aigua-m3',     nom: 'Monthly Water Consumption' },
+        { id: 'input-preu-aigua',   nom: 'Water Price' },
+        { id: 'input-recanvis',     nom: 'Marker Refills' },
+        { id: 'input-preu-recanvi', nom: 'Marker Price' },
+        { id: 'input-paper',        nom: 'A4 Paper' },
+        { id: 'input-preu-paper',   nom: 'Paper Price' },
+        { id: 'input-pilot',        nom: 'Pilot Markers' },
+        { id: 'input-preu-pilot',   nom: 'Pilot Price' },
+        { id: 'input-neteja-mes',   nom: 'Monthly Cleaning Cost' },
+        { id: 'input-soap-liters',  nom: 'Bulk Soap Liters' },
+        { id: 'input-preu-soap',    nom: 'Soap Price' },
+        { id: 'input-towels',       nom: 'Paper Towels' },
+        { id: 'input-preu-towels',  nom: 'Towel Price' }
     ];
     const errorDiv = document.getElementById('input-error');
     let errors = [];
@@ -144,11 +155,11 @@ function validarInputs() {
         const el = document.getElementById(c.id);
         if (!el) return;
         const val = parseFloat(el.value);
-        if (isNaN(val) || val <= 0) { errors.push(c.nom); el.classList.add('input-invalid'); }
+        if (isNaN(val) || val < 0) { errors.push(c.nom); el.classList.add('input-invalid'); }
     });
     if (errors.length > 0) {
         errorDiv.style.display = 'block';
-        errorDiv.textContent = `⚠️ The following fields must be greater than 0: ${errors.join(', ')}`;
+        errorDiv.textContent = `⚠️ The following fields must be valid: ${errors.join(', ')}`;
         return false;
     }
     errorDiv.style.display = 'none';
@@ -169,10 +180,21 @@ function calcularF3() {
     const aiguaM3mes  = parseFloat(document.getElementById('input-aigua-m3').value);
     const preuAigua   = parseFloat(document.getElementById('input-preu-aigua').value);
 
-    const RECANVIS     = 170;  const PREU_RECANVI = 0.71;
-    const PAPER        = 100;  const PREU_PAPER   = 5.47;
-    const PILOT        = 115;  const PREU_PILOT   = 0.89;
-    const COST_NETEJA  = 750.26;
+    // Read consumables inputs
+    const RECANVIS     = parseFloat(document.getElementById('input-recanvis').value);
+    const PREU_RECANVI = parseFloat(document.getElementById('input-preu-recanvi').value);
+    const PAPER        = parseFloat(document.getElementById('input-paper').value);
+    const PREU_PAPER   = parseFloat(document.getElementById('input-preu-paper').value);
+    const PILOT        = parseFloat(document.getElementById('input-pilot').value);
+    const PREU_PILOT   = parseFloat(document.getElementById('input-preu-pilot').value);
+
+    // Read cleaning inputs
+    const COST_NETEJA  = parseFloat(document.getElementById('input-neteja-mes').value);
+    const SOAP_LITERS  = parseFloat(document.getElementById('input-soap-liters').value);
+    const PREU_SOAP    = parseFloat(document.getElementById('input-preu-soap').value);
+    const TOWELS       = parseFloat(document.getElementById('input-towels').value);
+    const PREU_TOWELS  = parseFloat(document.getElementById('input-preu-towels').value);
+
     const MESOS        = 10;
 
     const FACTOR_ELEC  = [1.0, 0.85, 0.90, 1.40, 1.40, 1.35, 0.80, 0.80, 1.0, 1.30];
@@ -187,11 +209,9 @@ function calcularF3() {
     for (let i = 0; i < MESOS; i++) {
         const varI = 1 + (Math.random() * 0.06 - 0.03);
 
-    // Electricity: full school consumption proportional to teaching hours
-    // Base reference: 1800h/year → ~720 kWh/month (realistic school total load ~6kW average)
-    // This scales linearly so 20h gives near-zero, 1800h gives realistic ~7200 kWh/term
-    const KW_TOTAL_ESCOLA = 6.0; // kW average total load for the school
-    const kwhBaseMes = KW_TOTAL_ESCOLA * (horesCurs / MESOS);
+        // Electricity: full school consumption proportional to teaching hours
+        const KW_TOTAL_ESCOLA = 6.0; // kW average total load for the school
+        const kwhBaseMes = KW_TOTAL_ESCOLA * (horesCurs / MESOS);
 
         const kwhMes = kwhBaseMes * FACTOR_ELEC[i] * varI;
         elecKwhArr.push(parseFloat(kwhMes.toFixed(1)));
@@ -209,7 +229,7 @@ function calcularF3() {
                           (PILOT    / MESOS) * PREU_PILOT) * factCons * varI;
         totConsuEur += consMes;
 
-        const netejaMes = COST_NETEJA * varI;
+        const netejaMes = (COST_NETEJA + (SOAP_LITERS / MESOS) * PREU_SOAP + (TOWELS / MESOS) * PREU_TOWELS) * varI;
         totNetejaEur += netejaMes;
 
         costTotalArr.push(parseFloat(((kwhMes * preuElect) + (m3Mes * preuAigua) + consMes + netejaMes).toFixed(2)));
@@ -229,7 +249,6 @@ function calcularF3() {
     if (!resDiv) return;
 
     // Summary card will be updated by calcularReduccio() to stay in sync
-    // Initial values use 30% reduction as placeholder
     const estalviTotal = totEurCurs * 0.30;
     const estalviElec  = totElecEur * 0.15;
     const estalviAigua = totAiguaEur * 0.30;
@@ -264,10 +283,11 @@ function calcularF3() {
             </div>
         </div>
 
-        <div class="res-card accent" style="animation-delay:0.3s">
-            <div class="card-header"><span class="icon">🧼</span><h4>Cleaning (F055)</h4></div>
+        <div class="res-card green" style="animation-delay:0.3s">
+            <div class="card-header"><span class="icon">🧼</span><h4>Cleaning</h4></div>
             <div class="data-row">
-                <div class="data-item"><strong>Monthly Cost</strong><span class="val">750.26</span><span class="unit">€/month</span></div>
+                <div class="data-item"><strong>Monthly Service Cost</strong><span class="val">${COST_NETEJA.toFixed(2)}</span><span class="unit">€/month</span></div>
+                <div class="data-item"><strong>Bulk Soap & Towels</strong><span class="val">${(SOAP_LITERS*PREU_SOAP + TOWELS*PREU_TOWELS).toFixed(2)}</span><span class="unit">€/year</span></div>
                 <div class="data-item"><strong>Term Cost (10 m.)</strong><span class="val">${totNetejaEur.toFixed(2)}</span><span class="unit">€</span></div>
             </div>
         </div>
@@ -334,7 +354,7 @@ function calcularF3() {
     }
 }
 
-// ─── MAIN CHART ───────────────────────────────────────────────────────────────
+// ─── MAIN CHART ─────────────────────────────────────────────────────────
 function renderChart(labels, kwh, m3, costTotal) {
     const container = document.getElementById('chart-container');
     const ctx = document.getElementById('chartElec');
@@ -572,7 +592,7 @@ function calcularReduccio() {
                     −${pctReduccio.toFixed(1)}%
                 </p>
                 <span class="unit">${accionsActives} action${accionsActives !== 1 ? 's' : ''} active</span>
-                ${pctReduccio >= 30 ? '<p style="color:var(--green);font-size:0.8rem;margin-top:0.5rem">✅ Target −30% achieved!</p>' : `<p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem">${(30 - pctReduccio).toFixed(1)}% remaining to reach the target</p>`}
+                ${pctReduccio >= 30 ? '<p style="color:var(--green);font-size:0.8rem;margin-top:0.5rem">✅ Target −30% achieved!</p>' : `<p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem">Need −${(30-pctReduccio).toFixed(1)}% more</p>`}
             </div>
             <div class="res-card green" style="animation-delay:0.1s">
                 <div class="card-header"><span class="icon">💶</span><h4>Estimated Savings</h4></div>
@@ -642,7 +662,7 @@ function calcularReduccio() {
     renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, estalvi, pctReduccio);
 }
 
-// ─── REDUCTION CHART ──────────────────────────────────────────────────────────
+// ─── REDUCTION CHART ───────────────────────────────────────────────────────
 function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, estalviTotal, pctTotal) {
     const ctx = document.getElementById('chartReduccio');
     if (!ctx) return;
@@ -745,7 +765,7 @@ function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, esta
     });
 }
 
-// ─── PROGRESS BARS ────────────────────────────────────────────────────────────
+// ─── PROGRESS BARS ────────────────────────────────────────────────────────
 function animarBarres() {
     for (let i = 1; i <= 4; i++) {
         const fill = document.getElementById(`fill${i}`);
@@ -842,7 +862,7 @@ function toggleTodasAccions(activar) {
     calcularReduccio();
 }
 
-// ─── PDF EXPORT ───────────────────────────────────────────────────────────────
+// ─── PDF EXPORT ─────────────────────────────────────────────────────────
 function exportarPDF() {
     const btn = document.getElementById('btn-export-pdf');
     if (btn) { btn.textContent = 'Generating PDF...'; btn.disabled = true; }
@@ -854,10 +874,10 @@ function exportarPDF() {
 
             // ── Colour palette ──
             const C = {
-                bg:      [15,  23,  42],   // #0f172a
-                card:    [22,  34,  58],   // slightly lighter navy
-                card2:   [28,  42,  70],   // alternating row
-                accent:  [56,  189, 248],  // cyan
+                bg:      [15,  23,  42],
+                card:    [22,  34,  58],
+                card2:   [28,  42,  70],
+                accent:  [56,  189, 248],
                 green:   [16,  185, 129],
                 yellow:  [251, 191, 36],
                 purple:  [129, 140, 248],
@@ -872,14 +892,12 @@ function exportarPDF() {
             let y = 0;
             let pageNum = 1;
 
-            // ── Fill entire page background ──
             function fillBackground() {
                 doc.setFillColor(...C.bg);
                 doc.rect(0, 0, W, H, 'F');
             }
             fillBackground();
 
-            // ── Add new page with background ──
             function newPage() {
                 doc.addPage();
                 pageNum++;
@@ -887,38 +905,30 @@ function exportarPDF() {
                 y = 20;
             }
 
-            // ── Check if we need a new page ──
             function checkPage(needed = 20) {
                 if (y + needed > H - 18) newPage();
             }
 
-            // ── Draw header band ──
             function drawHeader() {
-                // Top accent bar
                 doc.setFillColor(...C.accent);
                 doc.rect(0, 0, W, 3, 'F');
 
-                // Header background
                 doc.setFillColor(...C.dark);
                 doc.rect(0, 3, W, 30, 'F');
 
-                // Logo text
                 doc.setFont('helvetica', 'bold');
                 doc.setFontSize(22);
                 doc.setTextColor(...C.accent);
                 doc.text('EnergyCalc', M, 18);
 
-                // Subtitle
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(9);
                 doc.setTextColor(...C.muted);
                 doc.text('Energy Audit Phase 3  |  Simulation Report', M, 25);
 
-                // Date right-aligned
                 doc.setFontSize(8);
                 doc.text('Generated: ' + new Date().toLocaleString('en-GB'), W - M, 25, { align: 'right' });
 
-                // Separator line
                 doc.setDrawColor(...C.accent);
                 doc.setLineWidth(0.4);
                 doc.line(M, 32, W - M, 32);
@@ -926,7 +936,6 @@ function exportarPDF() {
                 y = 40;
             }
 
-            // ── Section title bar ──
             function sectionTitle(title, color = C.accent) {
                 checkPage(14);
                 doc.setFillColor(...color);
@@ -938,7 +947,6 @@ function exportarPDF() {
                 y += 11;
             }
 
-            // ── Table row (alternating) ──
             let rowIdx = 0;
             function resetRows() { rowIdx = 0; }
 
@@ -948,7 +956,6 @@ function exportarPDF() {
                 doc.setFillColor(...bg);
                 doc.rect(M, y, INNER, 8, 'F');
 
-                // Left border accent if highlight
                 if (highlight) {
                     doc.setFillColor(...C.accent);
                     doc.rect(M, y, 2, 8, 'F');
@@ -967,7 +974,6 @@ function exportarPDF() {
                 y += 8;
             }
 
-            // ── Total / summary row ──
             function totalRow(label, value, color = C.yellow) {
                 checkPage(11);
                 doc.setFillColor(...C.dark);
@@ -984,10 +990,8 @@ function exportarPDF() {
                 y += 13;
             }
 
-            // ── Spacer ──
             function gap(mm = 5) { y += mm; }
 
-            // ── Status badge row ──
             function statusRow(label, ok) {
                 checkPage(10);
                 const color = ok ? C.green : C.yellow;
@@ -1002,19 +1006,14 @@ function exportarPDF() {
                 y += 11;
             }
 
-            // ══════════════════════════════════════
-            // PAGE 1
-            // ══════════════════════════════════════
             drawHeader();
 
-            // ── Authors ──
             doc.setFont('helvetica', 'normal');
             doc.setFontSize(8.5);
             doc.setTextColor(...C.muted);
             doc.text('Authors:  Samuel Anton  &  Hector Marti   ·   Energy Audit Phase 3   ·   Technological Institute of Barcelona', M, y);
             y += 10;
 
-            // ── Section 1: Parameters ──
             sectionTitle('Simulation Parameters', C.accent);
             resetRows();
             const hores     = document.getElementById('input-hores')?.value || '1800';
@@ -1028,7 +1027,6 @@ function exportarPDF() {
             tableRow('Water Price',                      preuAigua + ' EUR/m3');
             gap(6);
 
-            // ── Section 2: Consumption Results ──
             const base = window._baseCosts;
             if (base) {
                 sectionTitle('Simulated Consumption Results', C.accent);
@@ -1044,7 +1042,6 @@ function exportarPDF() {
                 gap(4);
             }
 
-            // ── Section 3: Reduction Plan ──
             const red = window._reductionState;
             if (red) {
                 sectionTitle('Reduction Plan Results', C.green);
@@ -1068,7 +1065,6 @@ function exportarPDF() {
                 gap(6);
             }
 
-            // ── Section 4: Active Actions ──
             const activeActions = ACCIONS_REDUCCIO.filter(acc => {
                 const cb = document.getElementById(acc.id);
                 return cb && cb.checked;
@@ -1077,7 +1073,6 @@ function exportarPDF() {
                 checkPage(14 + activeActions.length * 9);
                 sectionTitle('Active Reduction Actions  (' + activeActions.length + ' selected)', C.purple);
 
-                // Table header
                 doc.setFillColor(...C.dark);
                 doc.rect(M, y, INNER, 7, 'F');
                 doc.setFont('helvetica', 'bold');
@@ -1096,7 +1091,6 @@ function exportarPDF() {
                     doc.setFillColor(...bg);
                     doc.rect(M, y, INNER, 8, 'F');
 
-                    // Category colour dot
                     const dotCol = acc.color === 'accent' ? C.accent
                                  : acc.color === 'yellow' ? C.yellow
                                  : acc.color === 'purple' ? C.purple : C.green;
@@ -1124,12 +1118,10 @@ function exportarPDF() {
                 });
             }
 
-            // ── Footer on every page ──
             const pageCount = doc.internal.getNumberOfPages();
             for (let i = 1; i <= pageCount; i++) {
                 doc.setPage(i);
 
-                // Bottom bar
                 doc.setFillColor(...C.dark);
                 doc.rect(0, H - 14, W, 14, 'F');
                 doc.setDrawColor(...C.border);
@@ -1151,12 +1143,12 @@ function exportarPDF() {
             console.error('PDF export error:', e);
             alert('Error generating PDF. Please ensure jsPDF has loaded correctly.');
         } finally {
-            if (btn) { btn.innerHTML = '<span>PDF</span> Export Current Data to PDF'; btn.disabled = false; }
+            if (btn) { btn.innerHTML = '<span>📄</span> Export Current Data to PDF'; btn.disabled = false; }
         }
     }, 120);
 }
 
-// ─── INITIALISATION ───────────────────────────────────────────────────────────
+// ─── INITIALISATION ───────────────────────────────────────────────────────
 window.onload = () => {
     cargarDatosJSON();
     calcularF3();
