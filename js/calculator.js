@@ -187,7 +187,13 @@ function calcularF3() {
     for (let i = 0; i < MESOS; i++) {
         const varI = 1 + (Math.random() * 0.06 - 0.03);
 
-        const kwhMes = (0.4 * (horesCurs / MESOS)) * FACTOR_ELEC[i] * varI;
+    // Electricity: full school consumption proportional to teaching hours
+    // Base reference: 1800h/year → ~720 kWh/month (realistic school total load ~6kW average)
+    // This scales linearly so 20h gives near-zero, 1800h gives realistic ~7200 kWh/term
+    const KW_TOTAL_ESCOLA = 6.0; // kW average total load for the school
+    const kwhBaseMes = KW_TOTAL_ESCOLA * (horesCurs / MESOS);
+
+        const kwhMes = kwhBaseMes * FACTOR_ELEC[i] * varI;
         elecKwhArr.push(parseFloat(kwhMes.toFixed(1)));
         totElecKwh += kwhMes;
         totElecEur += kwhMes * preuElect;
@@ -578,24 +584,28 @@ function calcularReduccio() {
                     New estimated cost: <strong style="color:var(--text)">${(base.total - estalviFromPct).toFixed(2)} €</strong>
                 </div>
             </div>
-            <div class="res-card purple" style="animation-delay:0.2s">
+            <div class="res-card purple" style="grid-column: 1 / -1; animation-delay:0.2s">
                 <div class="card-header"><span class="icon">📉</span><h4>Breakdown by Area</h4></div>
-                <div class="data-row" style="flex-direction:column;gap:0.4rem">
-                    <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">⚡ Energy</span>
-                        <span style="color:var(--yellow);font-weight:700">−${(redElec*100).toFixed(0)}% · −${(base.elec*redElec).toFixed(2)} €</span>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:0.5rem">
+                    <div style="background:rgba(251,191,36,0.07);border:1px solid rgba(251,191,36,0.2);border-radius:10px;padding:0.9rem">
+                        <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">⚡ Energy</div>
+                        <div style="font-size:1.3rem;font-weight:800;color:var(--yellow)">−${(redElec*100).toFixed(0)}%</div>
+                        <div style="font-size:0.8rem;color:var(--yellow);margin-top:0.2rem">−${(base.elec*redElec).toFixed(2)} €</div>
                     </div>
-                    <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">💧 Water</span>
-                        <span style="color:var(--accent);font-weight:700">−${(redAigua*100).toFixed(0)}% · −${(base.aigua*redAigua).toFixed(2)} €</span>
+                    <div style="background:rgba(56,189,248,0.07);border:1px solid rgba(56,189,248,0.2);border-radius:10px;padding:0.9rem">
+                        <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">💧 Water</div>
+                        <div style="font-size:1.3rem;font-weight:800;color:var(--accent)">−${(redAigua*100).toFixed(0)}%</div>
+                        <div style="font-size:0.8rem;color:var(--accent);margin-top:0.2rem">−${(base.aigua*redAigua).toFixed(2)} €</div>
                     </div>
-                    <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">♻️ Consumables</span>
-                        <span style="color:var(--purple);font-weight:700">−${(redConsu*100).toFixed(0)}% · −${(base.consu*redConsu).toFixed(2)} €</span>
+                    <div style="background:rgba(129,140,248,0.07);border:1px solid rgba(129,140,248,0.2);border-radius:10px;padding:0.9rem">
+                        <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">♻️ Consumables</div>
+                        <div style="font-size:1.3rem;font-weight:800;color:var(--purple)">−${(redConsu*100).toFixed(0)}%</div>
+                        <div style="font-size:0.8rem;color:var(--purple);margin-top:0.2rem">−${(base.consu*redConsu).toFixed(2)} €</div>
                     </div>
-                    <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">🧼 Cleaning</span>
-                        <span style="color:var(--green);font-weight:700">−${(redNeteja*100).toFixed(0)}% · −${(base.neteja*redNeteja).toFixed(2)} €</span>
+                    <div style="background:rgba(16,185,129,0.07);border:1px solid rgba(16,185,129,0.2);border-radius:10px;padding:0.9rem">
+                        <div style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:0.4rem">🧼 Cleaning</div>
+                        <div style="font-size:1.3rem;font-weight:800;color:var(--green)">−${(redNeteja*100).toFixed(0)}%</div>
+                        <div style="font-size:0.8rem;color:var(--green);margin-top:0.2rem">−${(base.neteja*redNeteja).toFixed(2)} €</div>
                     </div>
                 </div>
             </div>
@@ -997,6 +1007,13 @@ function exportarPDF() {
             // ══════════════════════════════════════
             drawHeader();
 
+            // ── Authors ──
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(8.5);
+            doc.setTextColor(...C.muted);
+            doc.text('Authors:  Samuel Anton  &  Hector Marti   ·   Energy Audit Phase 3   ·   Technological Institute of Barcelona', M, y);
+            y += 10;
+
             // ── Section 1: Parameters ──
             sectionTitle('Simulation Parameters', C.accent);
             resetRows();
@@ -1122,7 +1139,7 @@ function exportarPDF() {
                 doc.setFont('helvetica', 'normal');
                 doc.setFontSize(7);
                 doc.setTextColor(...C.muted);
-                doc.text('EnergyCalc  |  Energy Audit Phase 3  |  Data from declassified invoices  |  SDG 3 - 6 - 7 - 12', M, H - 7);
+                doc.text('EnergyCalc  |  Energy Audit Phase 3  |  Authors: Samuel Anton & Hector Marti  |  SDG 3 - 6 - 7 - 12', M, H - 7);
                 doc.setTextColor(...C.accent);
                 doc.text('Page ' + i + ' of ' + pageCount, W - M, H - 7, { align: 'right' });
             }
