@@ -6,7 +6,7 @@ const backupData = {
     social_health:     { bulk_soap_liters: 15, soap_price_eur: 8.50, paper_towel_fardos: 10, paper_towel_price_eur: 18.25, cleaning_cost_eur: 750.26, ods: 3 }
 };
 
-// ─── CARREGAR INDICADORS CLAU ─────────────────────────────────────────────────
+// ─── LOAD KEY INDICATORS ──────────────────────────────────────────────────────
 async function cargarDatosJSON() {
     try {
         const response = await fetch('data.json');
@@ -44,103 +44,103 @@ function renderizarIndicadores(data) {
 
     grid.innerHTML = `
         <div class="res-card accent">
-            <div class="card-header"><span class="icon">💧</span><h4>Aigua · ODS 6</h4></div>
+            <div class="card-header"><span class="icon">💧</span><h4>Water · SDG 6</h4></div>
             <div class="data-row">
                 <div class="data-item">
-                    <strong>Consum Mensual</strong>
-                    <span class="val">${consumMensualM3}</span><span class="unit">m³/mes</span>
+                    <strong>Monthly Consumption</strong>
+                    <span class="val">${consumMensualM3}</span><span class="unit">m³/month</span>
                 </div>
                 <div class="data-item">
-                    <strong>Consum Anual</strong>
-                    <span class="val">${consumAnualM3}</span><span class="unit">m³/any</span>
+                    <strong>Annual Consumption</strong>
+                    <span class="val">${consumAnualM3}</span><span class="unit">m³/year</span>
                 </div>
                 <div class="data-item">
-                    <strong>Cost Estimat</strong>
-                    <span class="val">${costAiguaAny}</span><span class="unit">€/any</span>
+                    <strong>Estimated Cost</strong>
+                    <span class="val">${costAiguaAny}</span><span class="unit">€/year</span>
                 </div>
                 <div class="data-item">
-                    <strong>Fuga Nocturna (8h)</strong>
-                    <span class="val">${fugaEstimadaM3}</span><span class="unit">m³/any · ${fugaCostAny} €</span>
+                    <strong>Overnight Leak (8h)</strong>
+                    <span class="val">${fugaEstimadaM3}</span><span class="unit">m³/year · ${fugaCostAny} €</span>
                 </div>
             </div>
         </div>
 
         <div class="res-card yellow">
-            <div class="card-header"><span class="icon">⚡</span><h4>Energia · ODS 7</h4></div>
+            <div class="card-header"><span class="icon">⚡</span><h4>Energy · SDG 7</h4></div>
             <div class="data-row">
                 <div class="data-item">
-                    <strong>Compressor AC</strong>
+                    <strong>AC Compressor</strong>
                     <span class="val">${data.energy_efficiency.ac_compressor_w}</span><span class="unit">W</span>
                 </div>
                 <div class="data-item">
-                    <strong>Consum Curs</strong>
+                    <strong>Term Consumption</strong>
                     <span class="val">${kwhCurs}</span><span class="unit">kWh</span>
                 </div>
                 <div class="data-item">
-                    <strong>Cost Elèctric Curs</strong>
+                    <strong>Electrical Cost / Term</strong>
                     <span class="val">${costElecCurs}</span><span class="unit">€</span>
                 </div>
                 <div class="data-item">
-                    <strong>Inversió Circuits (F046)</strong>
+                    <strong>Circuit Investment (F046)</strong>
                     <span class="val">${data.energy_efficiency.circuit_upgrade_eur.toFixed(2)}</span><span class="unit">€</span>
                 </div>
             </div>
         </div>
 
         <div class="res-card purple">
-            <div class="card-header"><span class="icon">♻️</span><h4>Consumibles · ODS 12</h4></div>
+            <div class="card-header"><span class="icon">♻️</span><h4>Consumables · SDG 12</h4></div>
             <div class="data-row">
                 <div class="data-item">
-                    <strong>Recanvis Marcadors</strong>
-                    <span class="val">${costMarc}</span><span class="unit">€/any</span>
+                    <strong>Marker Refills</strong>
+                    <span class="val">${costMarc}</span><span class="unit">€/year</span>
                 </div>
                 <div class="data-item">
-                    <strong>Paper A4</strong>
-                    <span class="val">${costPaper}</span><span class="unit">€/any</span>
+                    <strong>A4 Paper</strong>
+                    <span class="val">${costPaper}</span><span class="unit">€/year</span>
                 </div>
                 <div class="data-item">
-                    <strong>Marcadors Pilot</strong>
-                    <span class="val">${costPilot}</span><span class="unit">€/any</span>
+                    <strong>Pilot Markers</strong>
+                    <span class="val">${costPilot}</span><span class="unit">€/year</span>
                 </div>
                 <div class="data-item">
-                    <strong>Total Consumibles</strong>
-                    <span class="val">${costConsuTotal}</span><span class="unit">€/any</span>
+                    <strong>Total Consumables</strong>
+                    <span class="val">${costConsuTotal}</span><span class="unit">€/year</span>
                 </div>
             </div>
         </div>
 
         <div class="res-card green">
-            <div class="card-header"><span class="icon">🧼</span><h4>Neteja · ODS 3</h4></div>
+            <div class="card-header"><span class="icon">🧼</span><h4>Cleaning · SDG 3</h4></div>
             <div class="data-row">
                 <div class="data-item">
-                    <strong>Cost Mensual (F055)</strong>
-                    <span class="val">${costNetejaMes}</span><span class="unit">€/mes</span>
+                    <strong>Monthly Cost (F055)</strong>
+                    <span class="val">${costNetejaMes}</span><span class="unit">€/month</span>
                 </div>
                 <div class="data-item">
-                    <strong>Cost Curs (10 mesos)</strong>
+                    <strong>Term Cost (10 months)</strong>
                     <span class="val">${costNetejaAny}</span><span class="unit">€</span>
                 </div>
                 <div class="data-item">
-                    <strong>Sabó Granel</strong>
-                    <span class="val">${data.social_health.bulk_soap_liters}</span><span class="unit">L · ${data.social_health.soap_price_eur.toFixed(2)} €/garrafa</span>
+                    <strong>Bulk Soap</strong>
+                    <span class="val">${data.social_health.bulk_soap_liters}</span><span class="unit">L · ${data.social_health.soap_price_eur.toFixed(2)} €/container</span>
                 </div>
             </div>
         </div>
     `;
 }
 
-// ─── VALIDACIÓ ────────────────────────────────────────────────────────────────
+// ─── VALIDATION ───────────────────────────────────────────────────────────────
 function validarInputs() {
-    const camps = [
-        { id: 'input-hores',      nom: 'Hores Lectives' },
-        { id: 'input-preu-elect', nom: 'Preu Energia' },
-        { id: 'input-aigua-m3',   nom: 'Consum Mensual Aigua' },
-        { id: 'input-preu-aigua', nom: 'Preu Aigua' },
+    const fields = [
+        { id: 'input-hores',      nom: 'Teaching Hours' },
+        { id: 'input-preu-elect', nom: 'Energy Price' },
+        { id: 'input-aigua-m3',   nom: 'Monthly Water Consumption' },
+        { id: 'input-preu-aigua', nom: 'Water Price' },
     ];
     const errorDiv = document.getElementById('input-error');
     let errors = [];
-    camps.forEach(c => document.getElementById(c.id)?.classList.remove('input-invalid'));
-    camps.forEach(c => {
+    fields.forEach(c => document.getElementById(c.id)?.classList.remove('input-invalid'));
+    fields.forEach(c => {
         const el = document.getElementById(c.id);
         if (!el) return;
         const val = parseFloat(el.value);
@@ -148,17 +148,17 @@ function validarInputs() {
     });
     if (errors.length > 0) {
         errorDiv.style.display = 'block';
-        errorDiv.textContent = `⚠️ Els camps següents han de ser majors que 0: ${errors.join(', ')}`;
+        errorDiv.textContent = `⚠️ The following fields must be greater than 0: ${errors.join(', ')}`;
         return false;
     }
     errorDiv.style.display = 'none';
     return true;
 }
 
-// ─── CALCULADORA F3 ───────────────────────────────────────────────────────────
+// ─── EFFICIENCY CALCULATOR ────────────────────────────────────────────────────
 let chartInstance = null;
 
-// Guardem els costos base per reutilitzar-los a la calculadora de reducció
+// Store base costs to reuse in the reduction calculator
 window._baseCosts = null;
 
 function calcularF3() {
@@ -175,9 +175,9 @@ function calcularF3() {
     const COST_NETEJA  = 750.26;
     const MESOS        = 10;
 
-    const FACTOR_ELEC = [1.0, 0.85, 0.90, 1.40, 1.40, 1.35, 0.80, 0.80, 1.0, 1.30];
+    const FACTOR_ELEC  = [1.0, 0.85, 0.90, 1.40, 1.40, 1.35, 0.80, 0.80, 1.0, 1.30];
     const FACTOR_AIGUA = [0.90, 0.85, 0.90, 0.95, 0.95, 0.90, 1.00, 1.05, 1.10, 1.30];
-    const MESOS_NOM = ['Set','Oct','Nov','Des','Gen','Feb','Mar','Abr','Mai','Jun'];
+    const MESOS_NOM    = ['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
 
     const elecKwhArr = [], aiguaM3Arr = [], costTotalArr = [];
     let totElecKwh = 0, totElecEur = 0;
@@ -209,15 +209,9 @@ function calcularF3() {
         costTotalArr.push(parseFloat(((kwhMes * preuElect) + (m3Mes * preuAigua) + consMes + netejaMes).toFixed(2)));
     }
 
-    const totEurCurs   = totElecEur + totAiguaEur + totConsuEur + totNetejaEur;
-    const estalviTotal = totEurCurs * 0.30;
-    const estalviElec  = totElecEur * 0.15;
-    const estalviAigua = totAiguaEur * 0.30;
-    const estalviConsu = totConsuEur * 0.30;
-    const estalviNet   = totNetejaEur * 0.10;
-    const totEurAny    = totEurCurs * 1.2;
+    const totEurCurs = totElecEur + totAiguaEur + totConsuEur + totNetejaEur;
 
-    // Guardem costos base per a la calculadora de reducció
+    // Store base costs for the reduction calculator
     window._baseCosts = {
         elec: totElecEur, aigua: totAiguaEur,
         consu: totConsuEur, neteja: totNetejaEur,
@@ -228,81 +222,86 @@ function calcularF3() {
     const resDiv = document.getElementById('results-f3');
     if (!resDiv) return;
 
-    // La targeta de resum es renderitza inicialment amb el pla complet (30%)
-    // Però s'actualitzarà via calcularReduccio() per mantenir coherència
+    // Summary card will be updated by calcularReduccio() to stay in sync
+    // Initial values use 30% reduction as placeholder
+    const estalviTotal = totEurCurs * 0.30;
+    const estalviElec  = totElecEur * 0.15;
+    const estalviAigua = totAiguaEur * 0.30;
+    const estalviConsu = totConsuEur * 0.30;
+
     resDiv.innerHTML = `
         <div class="res-card accent" style="animation-delay:0.0s">
-            <div class="card-header"><span class="icon">⚡</span><h4>Electricitat</h4></div>
+            <div class="card-header"><span class="icon">⚡</span><h4>Electricity</h4></div>
             <div class="data-row">
-                <div class="data-item"><strong>Consum Curs</strong><span class="val">${totElecKwh.toFixed(0)}</span><span class="unit">kWh</span></div>
-                <div class="data-item"><strong>Est. Anual</strong><span class="val">${(totElecKwh*1.2).toFixed(0)}</span><span class="unit">kWh/any</span></div>
-                <div class="data-item"><strong>Cost Curs</strong><span class="val">${totElecEur.toFixed(2)}</span><span class="unit">€</span></div>
+                <div class="data-item"><strong>Term Consumption</strong><span class="val">${totElecKwh.toFixed(0)}</span><span class="unit">kWh</span></div>
+                <div class="data-item"><strong>Annual Est.</strong><span class="val">${(totElecKwh*1.2).toFixed(0)}</span><span class="unit">kWh/year</span></div>
+                <div class="data-item"><strong>Term Cost</strong><span class="val">${totElecEur.toFixed(2)}</span><span class="unit">€</span></div>
             </div>
         </div>
 
         <div class="res-card accent" style="animation-delay:0.1s">
-            <div class="card-header"><span class="icon">💧</span><h4>Aigua</h4></div>
+            <div class="card-header"><span class="icon">💧</span><h4>Water</h4></div>
             <div class="data-row">
-                <div class="data-item"><strong>Consum Curs</strong><span class="val">${totAiguaM3.toFixed(1)}</span><span class="unit">m³</span></div>
-                <div class="data-item"><strong>Est. Anual</strong><span class="val">${(totAiguaM3*1.2).toFixed(1)}</span><span class="unit">m³/any</span></div>
-                <div class="data-item"><strong>Cost Curs</strong><span class="val">${totAiguaEur.toFixed(2)}</span><span class="unit">€</span></div>
+                <div class="data-item"><strong>Term Consumption</strong><span class="val">${totAiguaM3.toFixed(1)}</span><span class="unit">m³</span></div>
+                <div class="data-item"><strong>Annual Est.</strong><span class="val">${(totAiguaM3*1.2).toFixed(1)}</span><span class="unit">m³/year</span></div>
+                <div class="data-item"><strong>Term Cost</strong><span class="val">${totAiguaEur.toFixed(2)}</span><span class="unit">€</span></div>
             </div>
         </div>
 
         <div class="res-card purple" style="animation-delay:0.2s">
-            <div class="card-header"><span class="icon">♻️</span><h4>Consumibles</h4></div>
+            <div class="card-header"><span class="icon">♻️</span><h4>Consumables</h4></div>
             <div class="data-row">
-                <div class="data-item"><strong>Recanvis Marc.</strong><span class="val">${(RECANVIS*PREU_RECANVI).toFixed(2)}</span><span class="unit">€/any</span></div>
-                <div class="data-item"><strong>Paper A4</strong><span class="val">${(PAPER*PREU_PAPER).toFixed(2)}</span><span class="unit">€/any</span></div>
-                <div class="data-item"><strong>Marc. Pilot</strong><span class="val">${(PILOT*PREU_PILOT).toFixed(2)}</span><span class="unit">€/any</span></div>
-                <div class="data-item"><strong>Cost Total Curs</strong><span class="val">${totConsuEur.toFixed(2)}</span><span class="unit">€</span></div>
+                <div class="data-item"><strong>Marker Refills</strong><span class="val">${(RECANVIS*PREU_RECANVI).toFixed(2)}</span><span class="unit">€/year</span></div>
+                <div class="data-item"><strong>A4 Paper</strong><span class="val">${(PAPER*PREU_PAPER).toFixed(2)}</span><span class="unit">€/year</span></div>
+                <div class="data-item"><strong>Pilot Markers</strong><span class="val">${(PILOT*PREU_PILOT).toFixed(2)}</span><span class="unit">€/year</span></div>
+                <div class="data-item"><strong>Total Term Cost</strong><span class="val">${totConsuEur.toFixed(2)}</span><span class="unit">€</span></div>
             </div>
         </div>
 
         <div class="res-card accent" style="animation-delay:0.3s">
-            <div class="card-header"><span class="icon">🧼</span><h4>Neteja (F055)</h4></div>
+            <div class="card-header"><span class="icon">🧼</span><h4>Cleaning (F055)</h4></div>
             <div class="data-row">
-                <div class="data-item"><strong>Cost Mensual</strong><span class="val">750,26</span><span class="unit">€/mes</span></div>
-                <div class="data-item"><strong>Cost Curs (10 m.)</strong><span class="val">${totNetejaEur.toFixed(2)}</span><span class="unit">€</span></div>
+                <div class="data-item"><strong>Monthly Cost</strong><span class="val">750.26</span><span class="unit">€/month</span></div>
+                <div class="data-item"><strong>Term Cost (10 m.)</strong><span class="val">${totNetejaEur.toFixed(2)}</span><span class="unit">€</span></div>
             </div>
         </div>
 
         <div class="res-card green" id="resum-pla-card" style="grid-column: 1 / -1; animation-delay:0.4s">
-            <div class="card-header"><span class="icon">✅</span><h4>Resum · Si apliquem el Pla de Reducció</h4></div>
+            <div class="card-header"><span class="icon">✅</span><h4>Summary · Applying the Reduction Plan</h4></div>
             <div class="saving-hero">
-                <div class="label">Estalvi potencial total del curs (basat en accions seleccionades ↓)</div>
+                <div class="label">Total potential savings for the term (based on selected actions below)</div>
                 <div class="big-number" id="resum-estalvi-big">−${estalviTotal.toFixed(2)}<span> €</span></div>
             </div>
             <div class="saving-breakdown">
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Cost actual curs</span>
+                    <span class="sb-label">Current term cost</span>
                     <span class="sb-val neutral" id="resum-cost-actual">${totEurCurs.toFixed(2)} €</span>
                 </div>
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Estalvi energia</span>
+                    <span class="sb-label">Energy savings</span>
                     <span class="sb-val" id="resum-estalvi-elec">−${estalviElec.toFixed(2)} €</span>
                 </div>
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Estalvi aigua</span>
+                    <span class="sb-label">Water savings</span>
                     <span class="sb-val" id="resum-estalvi-aigua">−${estalviAigua.toFixed(2)} €</span>
                 </div>
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Estalvi consumibles</span>
+                    <span class="sb-label">Consumables savings</span>
                     <span class="sb-val" id="resum-estalvi-consu">−${estalviConsu.toFixed(2)} €</span>
                 </div>
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Cost nou estimat</span>
+                    <span class="sb-label">New estimated cost</span>
                     <span class="sb-val neutral" id="resum-cost-nou">${(totEurCurs - estalviTotal).toFixed(2)} €</span>
                 </div>
                 <div class="saving-breakdown-item">
-                    <span class="sb-label">Reducció total</span>
+                    <span class="sb-label">Total reduction</span>
                     <span class="sb-val" id="resum-pct-reduccio">−${(estalviTotal/totEurCurs*100).toFixed(1)}%</span>
                 </div>
             </div>
         </div>
     `;
 
-    // Actualitzar Pla de Reducció (barres estàtiques)
+    // Update Reduction Plan (static bars)
     const aiguaFugaM3  = (193 * 8 * 365 / 1000).toFixed(0);
     const aiguaFugaEur = (aiguaFugaM3 * preuAigua).toFixed(0);
     const eAt = document.getElementById('estalvi-aigua-text');
@@ -317,19 +316,19 @@ function calcularF3() {
     const ta = document.getElementById('taula-estalvi-aigua');
     const te = document.getElementById('taula-estalvi-elec');
     const tc = document.getElementById('taula-estalvi-consu');
-    if (ta) ta.innerHTML = `<strong>${aiguaFugaM3} m³/any · ${aiguaFugaEur} €/any</strong>`;
-    if (te) te.innerHTML = `<strong>${(totElecKwh*0.10).toFixed(0)} kWh/curs · ${estalviElec.toFixed(2)} €/curs</strong>`;
-    if (tc) tc.innerHTML = `<strong>${estalviConsu.toFixed(2)} €/any</strong>`;
+    if (ta) ta.innerHTML = `<strong>${aiguaFugaM3} m³/year · ${aiguaFugaEur} €/year</strong>`;
+    if (te) te.innerHTML = `<strong>${(totElecKwh*0.10).toFixed(0)} kWh/term · ${estalviElec.toFixed(2)} €/term</strong>`;
+    if (tc) tc.innerHTML = `<strong>${estalviConsu.toFixed(2)} €/year</strong>`;
 
     renderChart(MESOS_NOM, elecKwhArr, aiguaM3Arr, costTotalArr);
 
-    // Recalcular la calculadora de reducció si ja existeix
+    // Recalculate reduction calculator if already rendered
     if (document.getElementById('reduction-results')) {
         calcularReduccio();
     }
 }
 
-// ─── GRÀFICA PRINCIPAL ────────────────────────────────────────────────────────
+// ─── MAIN CHART ───────────────────────────────────────────────────────────────
 function renderChart(labels, kwh, m3, costTotal) {
     const container = document.getElementById('chart-container');
     const ctx = document.getElementById('chartElec');
@@ -343,14 +342,14 @@ function renderChart(labels, kwh, m3, costTotal) {
             labels,
             datasets: [
                 {
-                    label: 'Electricitat (kWh)',
+                    label: 'Electricity (kWh)',
                     data: kwh,
                     backgroundColor: 'rgba(56,189,248,0.6)',
                     borderColor: 'rgba(56,189,248,1)',
                     borderWidth: 1, borderRadius: 4, yAxisID: 'y'
                 },
                 {
-                    label: 'Aigua (m³)',
+                    label: 'Water (m³)',
                     data: m3,
                     type: 'line',
                     borderColor: 'rgba(16,185,129,1)',
@@ -360,7 +359,7 @@ function renderChart(labels, kwh, m3, costTotal) {
                     tension: 0.4, fill: true, yAxisID: 'y2'
                 },
                 {
-                    label: 'Cost Total (€)',
+                    label: 'Total Cost (€)',
                     data: costTotal,
                     type: 'line',
                     borderColor: 'rgba(251,191,36,1)',
@@ -409,27 +408,25 @@ function renderChart(labels, kwh, m3, costTotal) {
     });
 }
 
-// ─── CALCULADORA DE REDUCCIÓ INTERACTIVA ──────────────────────────────────────
-// Definició de totes les accions amb el seu impacte
+// ─── INTERACTIVE REDUCTION CALCULATOR ────────────────────────────────────────
 const ACCIONS_REDUCCIO = [
     {
         id: 'acc-aigua-nocturna',
         icon: '💧',
-        nom: 'Tall automàtic d\'aigua nocturna',
-        desc: 'Elimina la fuga de 193 L/h durant 8h nocturnes. Estalvi directe sobre consum d\'aigua.',
-        any: 'Any 1',
+        nom: 'Automatic overnight water shut-off',
+        desc: 'Eliminates the 193 L/h leak during 8 overnight hours. Direct savings on water consumption.',
+        any: 'Year 1',
         color: 'accent',
         ods: 6,
         categoria: 'aigua',
-        // Reducció aplicada sobre cost_aigua: 30% (fuga = ~30% del consum total)
         impacte: { aigua: 0.22, elec: 0, consu: 0, neteja: 0 }
     },
     {
         id: 'acc-led',
         icon: '💡',
-        nom: 'Substitució il·luminació per LED',
-        desc: 'Canvi de fluorescents a LEDs en aules i passadissos. Reducció del 40% en il·luminació.',
-        any: 'Any 1',
+        nom: 'LED lighting replacement',
+        desc: 'Switch from fluorescents to LEDs in classrooms and corridors. 40% reduction in lighting.',
+        any: 'Year 1',
         color: 'yellow',
         ods: 7,
         categoria: 'elec',
@@ -438,9 +435,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-circuits',
         icon: '⚡',
-        nom: 'Substitució circuits elèctrics (F046)',
-        desc: 'Optimització del 15% del consum elèctric total. Inversió ja realitzada: 2.548,02 €.',
-        any: 'Any 1–2',
+        nom: 'Electrical circuit replacement (F046)',
+        desc: '15% optimisation of total electricity consumption. Investment already made: 2,548.02 €.',
+        any: 'Year 1–2',
         color: 'yellow',
         ods: 7,
         categoria: 'elec',
@@ -449,9 +446,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-termostats',
         icon: '🌡️',
-        nom: 'Control intel·ligent de termostats',
-        desc: 'Programació horària de calefacció/AC. Apagat automàtic fora d\'hores lectives.',
-        any: 'Any 1',
+        nom: 'Smart thermostat control',
+        desc: 'Scheduled heating/AC programming. Automatic shut-off outside teaching hours.',
+        any: 'Year 1',
         color: 'yellow',
         ods: 7,
         categoria: 'elec',
@@ -460,9 +457,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-consumibles',
         icon: '♻️',
-        nom: 'Economia Circular consumibles (F036)',
-        desc: 'Ús de recanvis de marcadors i paper reciclat. Reducció del 30% en consumibles.',
-        any: 'Any 1–3',
+        nom: 'Circular Economy consumables (F036)',
+        desc: 'Use of marker refills and recycled paper. 30% reduction in consumables.',
+        any: 'Year 1–3',
         color: 'purple',
         ods: 12,
         categoria: 'consu',
@@ -471,9 +468,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-digital',
         icon: '📱',
-        nom: 'Digitalització de documents',
-        desc: 'Reducció del 50% d\'impressions mitjançant plataformes digitals i aules virtuals.',
-        any: 'Any 1–2',
+        nom: 'Document digitalisation',
+        desc: '50% reduction in printing through digital platforms and virtual classrooms.',
+        any: 'Year 1–2',
         color: 'purple',
         ods: 12,
         categoria: 'consu',
@@ -482,9 +479,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-neteja-granel',
         icon: '🧼',
-        nom: 'Neteja a granel i reducció d\'envasos (F055)',
-        desc: 'Compra a granel de productes de neteja. Reducció del 30% del cost i envasos plàstic.',
-        any: 'Any 2',
+        nom: 'Bulk cleaning and packaging reduction (F055)',
+        desc: 'Bulk purchasing of cleaning products. 30% cost reduction and fewer plastic containers.',
+        any: 'Year 2',
         color: 'green',
         ods: 3,
         categoria: 'neteja',
@@ -493,9 +490,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-xarxes-aigua',
         icon: '🔧',
-        nom: 'Revisió i manteniment de xarxes d\'aigua',
-        desc: 'Inspecció de canonades, aixetes i cisternes. Reducció addicional del 10% de fuites.',
-        any: 'Any 2',
+        nom: 'Water network inspection and maintenance',
+        desc: 'Inspection of pipes, taps and cisterns. Additional 10% reduction in leaks.',
+        any: 'Year 2',
         color: 'accent',
         ods: 6,
         categoria: 'aigua',
@@ -504,9 +501,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-solar',
         icon: '☀️',
-        nom: 'Instal·lació de plaques solars fotovoltaiques',
-        desc: 'Autoconsum energètic del 20% de la demanda elèctrica anual del centre.',
-        any: 'Any 2–3',
+        nom: 'Photovoltaic solar panel installation',
+        desc: '20% self-consumption of the centre\'s annual electricity demand.',
+        any: 'Year 2–3',
         color: 'yellow',
         ods: 7,
         categoria: 'elec',
@@ -515,9 +512,9 @@ const ACCIONS_REDUCCIO = [
     {
         id: 'acc-sensorsaigua',
         icon: '📡',
-        nom: 'Sensors de presència als lavabos',
-        desc: 'Tancar automàticament l\'aigua si no hi ha moviment. Estalvi addicional del 8%.',
-        any: 'Any 2–3',
+        nom: 'Presence sensors in bathrooms',
+        desc: 'Automatically shut off water when no movement detected. Additional 8% savings.',
+        any: 'Year 2–3',
         color: 'accent',
         ods: 6,
         categoria: 'aigua',
@@ -537,7 +534,6 @@ function calcularReduccio() {
     ACCIONS_REDUCCIO.forEach(acc => {
         const cb = document.getElementById(acc.id);
         if (cb && cb.checked) {
-            // Cap al màxim per categoria, no s'acumulen linealment indefinidament
             redAigua  = Math.min(0.90, redAigua  + acc.impacte.aigua);
             redElec   = Math.min(0.90, redElec   + acc.impacte.elec);
             redConsu  = Math.min(0.90, redConsu  + acc.impacte.consu);
@@ -553,49 +549,52 @@ function calcularReduccio() {
     const nouTotal      = nouCostAigua + nouCostElec + nouCostConsu + nouCostNeteja;
     const estalvi       = base.total - nouTotal;
 
-    // Reducció ponderada per categoria (25% cada una) — evita que neteja (62% cost) domini el %
-    // Cada categoria val igual en el marcador de progrés, independentment del seu pes econòmic
+    // Weighted reduction per category (25% each) — prevents cleaning (62% of cost) from dominating %
     const pctReduccio = (redAigua + redElec + redConsu + redNeteja) / 4 * 100;
 
-    // Actualitzar targetes resum
+    // ── Estimated savings = total cost × reduction percentage ──
+    const estalviFromPct = base.total * (pctReduccio / 100);
+
+    // Update summary cards
     const resDiv = document.getElementById('reduction-results');
     if (resDiv) {
         const colorPct = pctReduccio >= 30 ? 'green' : pctReduccio >= 15 ? 'yellow' : 'accent';
         resDiv.innerHTML = `
             <div class="res-card ${colorPct}" style="animation-delay:0s">
-                <div class="card-header"><span class="icon">📊</span><h4>Reducció Total</h4></div>
+                <div class="card-header"><span class="icon">📊</span><h4>Total Reduction</h4></div>
                 <p style="font-size:2.4rem;font-weight:800;color:var(--${colorPct === 'accent' ? 'accent' : colorPct === 'yellow' ? 'yellow' : 'green'})">
                     −${pctReduccio.toFixed(1)}%
                 </p>
-                <span class="unit">${accionsActives} acció${accionsActives !== 1 ? 'ns' : ''} activada${accionsActives !== 1 ? 'es' : ''}</span>
-                ${pctReduccio >= 30 ? '<p style="color:var(--green);font-size:0.8rem;margin-top:0.5rem">✅ Objectiu −30% assolit!</p>' : `<p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem">Falta ${(30 - pctReduccio).toFixed(1)}% per assolir l'objectiu</p>`}
+                <span class="unit">${accionsActives} action${accionsActives !== 1 ? 's' : ''} active</span>
+                ${pctReduccio >= 30 ? '<p style="color:var(--green);font-size:0.8rem;margin-top:0.5rem">✅ Target −30% achieved!</p>' : `<p style="color:var(--text-muted);font-size:0.8rem;margin-top:0.5rem">${(30 - pctReduccio).toFixed(1)}% remaining to reach the target</p>`}
             </div>
             <div class="res-card green" style="animation-delay:0.1s">
-                <div class="card-header"><span class="icon">💶</span><h4>Estalvi Estimat</h4></div>
-                <p style="font-size:2rem;font-weight:800;color:var(--green)">−${estalvi.toFixed(2)} €</p>
-                <span class="unit">per curs</span>
+                <div class="card-header"><span class="icon">💶</span><h4>Estimated Savings</h4></div>
+                <p style="font-size:2rem;font-weight:800;color:var(--green)">−${estalviFromPct.toFixed(2)} €</p>
+                <span class="unit">per term</span>
                 <div style="margin-top:0.8rem;font-size:0.8rem;color:var(--text-muted)">
-                    Cost actual: <strong style="color:var(--text)">${base.total.toFixed(2)} €</strong><br>
-                    Cost nou estimat: <strong style="color:var(--text)">${nouTotal.toFixed(2)} €</strong>
+                    Based on <strong style="color:var(--accent)">${pctReduccio.toFixed(1)}%</strong> total reduction applied to current cost<br>
+                    Current cost: <strong style="color:var(--text)">${base.total.toFixed(2)} €</strong><br>
+                    New estimated cost: <strong style="color:var(--text)">${(base.total - estalviFromPct).toFixed(2)} €</strong>
                 </div>
             </div>
             <div class="res-card purple" style="animation-delay:0.2s">
-                <div class="card-header"><span class="icon">📉</span><h4>Desglossat per Àrea</h4></div>
+                <div class="card-header"><span class="icon">📉</span><h4>Breakdown by Area</h4></div>
                 <div class="data-row" style="flex-direction:column;gap:0.4rem">
                     <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">⚡ Energia</span>
+                        <span style="color:var(--text-muted)">⚡ Energy</span>
                         <span style="color:var(--yellow);font-weight:700">−${(redElec*100).toFixed(0)}% · −${(base.elec*redElec).toFixed(2)} €</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">💧 Aigua</span>
+                        <span style="color:var(--text-muted)">💧 Water</span>
                         <span style="color:var(--accent);font-weight:700">−${(redAigua*100).toFixed(0)}% · −${(base.aigua*redAigua).toFixed(2)} €</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">♻️ Consumibles</span>
+                        <span style="color:var(--text-muted)">♻️ Consumables</span>
                         <span style="color:var(--purple);font-weight:700">−${(redConsu*100).toFixed(0)}% · −${(base.consu*redConsu).toFixed(2)} €</span>
                     </div>
                     <div style="display:flex;justify-content:space-between;font-size:0.85rem">
-                        <span style="color:var(--text-muted)">🧼 Neteja</span>
+                        <span style="color:var(--text-muted)">🧼 Cleaning</span>
                         <span style="color:var(--green);font-weight:700">−${(redNeteja*100).toFixed(0)}% · −${(base.neteja*redNeteja).toFixed(2)} €</span>
                     </div>
                 </div>
@@ -603,7 +602,7 @@ function calcularReduccio() {
         `;
     }
 
-    // Actualitzar barra de progrés global
+    // Update global progress bar
     const bar = document.getElementById('reduction-bar-fill');
     const pctLabel = document.getElementById('reduction-bar-pct');
     if (bar) {
@@ -612,34 +611,35 @@ function calcularReduccio() {
     }
     if (pctLabel) pctLabel.textContent = pctReduccio.toFixed(1) + '%';
 
-    // ── Sincronitzar targeta Resum de la calculadora F3 ──
+    // ── Sync F3 calculator summary card — savings derived from reduction % ──
     const rBig  = document.getElementById('resum-estalvi-big');
     const rElec = document.getElementById('resum-estalvi-elec');
     const rAig  = document.getElementById('resum-estalvi-aigua');
     const rCon  = document.getElementById('resum-estalvi-consu');
     const rNou  = document.getElementById('resum-cost-nou');
     const rPct  = document.getElementById('resum-pct-reduccio');
-    if (rBig)  rBig.innerHTML  = `−${estalvi.toFixed(2)}<span> €</span>`;
+    if (rBig)  rBig.innerHTML  = `−${estalviFromPct.toFixed(2)}<span> €</span>`;
     if (rElec) rElec.textContent = `−${(base.elec * redElec).toFixed(2)} €`;
     if (rAig)  rAig.textContent  = `−${(base.aigua * redAigua).toFixed(2)} €`;
     if (rCon)  rCon.textContent  = `−${(base.consu * redConsu).toFixed(2)} €`;
-    if (rNou)  rNou.textContent  = `${nouTotal.toFixed(2)} €`;
+    if (rNou)  rNou.textContent  = `${(base.total - estalviFromPct).toFixed(2)} €`;
     if (rPct)  rPct.textContent  = `−${pctReduccio.toFixed(1)}%`;
 
-    // Gràfica comparativa any 0, 1, 2, 3
+    // Store current reduction state for PDF export
+    window._reductionState = { pctReduccio, estalviFromPct, redElec, redAigua, redConsu, redNeteja, nouTotal, accionsActives };
+
+    // Reduction projection chart
     renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, estalvi, pctReduccio);
 }
 
-// ─── GRÀFICA DE REDUCCIÓ ──────────────────────────────────────────────────────
+// ─── REDUCTION CHART ──────────────────────────────────────────────────────────
 function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, estalviTotal, pctTotal) {
     const ctx = document.getElementById('chartReduccio');
     if (!ctx) return;
     if (reductionChartInstance) reductionChartInstance.destroy();
 
-    // Simulem 3 anys d'aplicació progressiva (implementació gradual)
-    // Any 0 = actual, Any 1/2/3 = aplicació progressiva de les accions seleccionades
-    const anys = ['Actual', 'Any 1', 'Any 2', 'Any 3'];
-    const progressFactor = [0, 0.45, 0.75, 1.0]; // velocitat d'implementació
+    const anys = ['Current', 'Year 1', 'Year 2', 'Year 3'];
+    const progressFactor = [0, 0.45, 0.75, 1.0];
 
     const costosTotals = progressFactor.map(f => {
         const a = base.aigua  * (1 - redAigua  * f);
@@ -660,35 +660,35 @@ function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, esta
             labels: anys,
             datasets: [
                 {
-                    label: 'Energia (€)',
+                    label: 'Energy (€)',
                     data: costosElec,
                     backgroundColor: 'rgba(251,191,36,0.80)',
                     borderColor: 'rgba(251,191,36,1)',
                     borderWidth: 1, borderRadius: 4, stack: 'costos', yAxisID: 'y'
                 },
                 {
-                    label: 'Aigua (€)',
+                    label: 'Water (€)',
                     data: costosAigua,
                     backgroundColor: 'rgba(56,189,248,0.80)',
                     borderColor: 'rgba(56,189,248,1)',
                     borderWidth: 1, borderRadius: 4, stack: 'costos', yAxisID: 'y'
                 },
                 {
-                    label: 'Consumibles (€)',
+                    label: 'Consumables (€)',
                     data: costosConsu,
                     backgroundColor: 'rgba(129,140,248,0.80)',
                     borderColor: 'rgba(129,140,248,1)',
                     borderWidth: 1, borderRadius: 4, stack: 'costos', yAxisID: 'y'
                 },
                 {
-                    label: 'Neteja (€)',
+                    label: 'Cleaning (€)',
                     data: costosNeteja,
                     backgroundColor: 'rgba(16,185,129,0.80)',
                     borderColor: 'rgba(16,185,129,1)',
                     borderWidth: 1, borderRadius: 4, stack: 'costos', yAxisID: 'y'
                 },
                 {
-                    label: 'Cost Total (€)',
+                    label: 'Total Cost (€)',
                     data: costosTotals,
                     type: 'line',
                     borderColor: 'rgba(248,113,113,1)',
@@ -709,10 +709,7 @@ function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, esta
                     backgroundColor: '#1e293b', titleColor: '#f1f5f9',
                     bodyColor: '#94a3b8', borderColor: 'rgba(255,255,255,0.1)', borderWidth: 1,
                     callbacks: {
-                        label: (item) => {
-                            if (item.dataset.stack) return ` ${item.dataset.label}: ${item.raw.toFixed(2)} €`;
-                            return ` ${item.dataset.label}: ${item.raw.toFixed(2)} €`;
-                        },
+                        label: (item) => ` ${item.dataset.label}: ${item.raw.toFixed(2)} €`,
                         footer: (items) => {
                             const total = items.filter(i => i.dataset.stack).reduce((s,i) => s + i.raw, 0);
                             return `Total: ${total.toFixed(2)} €`;
@@ -727,9 +724,9 @@ function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, esta
                 },
                 y: {
                     stacked: true,
-                    title: { display: true, text: '€ / curs', color: '#94a3b8', font: { family: 'Inter', size: 11 } },
+                    title: { display: true, text: '€ / term', color: '#94a3b8', font: { family: 'Inter', size: 11 } },
                     ticks: { color: '#64748b', font: { family: 'Inter' },
-                        callback: v => v.toLocaleString('ca-ES', { maximumFractionDigits: 0 }) + ' €'
+                        callback: v => v.toLocaleString('en-GB', { maximumFractionDigits: 0 }) + ' €'
                     },
                     grid: { color: 'rgba(255,255,255,0.04)' }
                 }
@@ -738,7 +735,7 @@ function renderReductionChart(base, redAigua, redElec, redConsu, redNeteja, esta
     });
 }
 
-// ─── BARRES DE PROGRÉS ────────────────────────────────────────────────────────
+// ─── PROGRESS BARS ────────────────────────────────────────────────────────────
 function animarBarres() {
     for (let i = 1; i <= 4; i++) {
         const fill = document.getElementById(`fill${i}`);
@@ -752,16 +749,16 @@ function animarBarres() {
     }
 }
 
-// ─── RENDERITZAR CALCULADORA DE REDUCCIÓ ─────────────────────────────────────
+// ─── RENDER REDUCTION CALCULATOR ─────────────────────────────────────────────
 function renderReductionCalculator() {
     const container = document.getElementById('reduction-calc-container');
     if (!container) return;
 
     const categories = [
-        { key: 'elec',   label: 'Energia', icon: '⚡', color: 'yellow' },
-        { key: 'aigua',  label: 'Aigua',   icon: '💧', color: 'accent' },
-        { key: 'consu',  label: 'Consumibles', icon: '♻️', color: 'purple' },
-        { key: 'neteja', label: 'Neteja',  icon: '🧼', color: 'green'  }
+        { key: 'elec',   label: 'Energy',       icon: '⚡', color: 'yellow' },
+        { key: 'aigua',  label: 'Water',         icon: '💧', color: 'accent' },
+        { key: 'consu',  label: 'Consumables',   icon: '♻️', color: 'purple' },
+        { key: 'neteja', label: 'Cleaning',      icon: '🧼', color: 'green'  }
     ];
 
     let accionesHTML = '';
@@ -782,7 +779,7 @@ function renderReductionCalculator() {
                         <span class="acc-nom">${acc.icon} ${acc.nom}</span>
                         <span class="acc-badge acc-badge-${acc.color}">−${pctImpacte}% · ${acc.any}</span>
                     </div>
-                    <p class="acc-desc">${acc.desc} <span style="color:var(--accent);font-size:0.72rem">ODS ${acc.ods}</span></p>
+                    <p class="acc-desc">${acc.desc} <span style="color:var(--accent);font-size:0.72rem">SDG ${acc.ods}</span></p>
                 </div>
             </label>`;
         });
@@ -793,17 +790,17 @@ function renderReductionCalculator() {
         <div class="card-input" style="margin-bottom:2rem">
             <div class="card-header" style="margin-bottom:1rem">
                 <span class="icon">🎛️</span>
-                <h3 style="font-size:1.1rem">Simulador d'Accions de Reducció</h3>
+                <h3 style="font-size:1.1rem">Reduction Actions Simulator</h3>
             </div>
-            <p class="calc-desc">Activa o desactiva accions per veure com canvia la reducció de consum i cost. Els resultats s'actualitzen en temps real.</p>
+            <p class="calc-desc">Enable or disable actions to see how consumption and cost reduction changes. Results update in real time.</p>
 
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:0.8rem">
                 <div style="display:flex;gap:0.6rem;flex-wrap:wrap">
-                    <button onclick="toggleTodasAccions(true)"  class="btn-toggle-all btn-toggle-all-on">✅ Activar totes</button>
-                    <button onclick="toggleTodasAccions(false)" class="btn-toggle-all btn-toggle-all-off">❌ Desactivar totes</button>
+                    <button onclick="toggleTodasAccions(true)"  class="btn-toggle-all btn-toggle-all-on">✅ Enable all</button>
+                    <button onclick="toggleTodasAccions(false)" class="btn-toggle-all btn-toggle-all-off">❌ Disable all</button>
                 </div>
                 <div style="display:flex;align-items:center;gap:0.8rem;flex:1;min-width:200px;justify-content:flex-end">
-                    <span style="font-size:0.8rem;color:var(--text-muted);white-space:nowrap">Progrés objectiu −30%</span>
+                    <span style="font-size:0.8rem;color:var(--text-muted);white-space:nowrap">Target progress −30%</span>
                     <div class="progress-track" style="flex:1;max-width:200px;margin-bottom:0">
                         <div class="progress-fill pfill-accent" id="reduction-bar-fill" style="width:0%"></div>
                     </div>
@@ -819,12 +816,11 @@ function renderReductionCalculator() {
         <div id="reduction-results" class="results-grid" style="margin-bottom:2rem"></div>
 
         <div class="chart-card">
-            <h4>PROJECCIÓ DE COSTOS — IMPLEMENTACIÓ PROGRESSIVA 3 ANYS (€/curs)</h4>
+            <h4>COST PROJECTION — PROGRESSIVE 3-YEAR IMPLEMENTATION (€/term)</h4>
             <canvas id="chartReduccio" height="110"></canvas>
         </div>
     `;
 
-    // Calcular immediatament
     calcularReduccio();
 }
 
@@ -836,7 +832,314 @@ function toggleTodasAccions(activar) {
     calcularReduccio();
 }
 
-// ─── INICIALITZACIÓ ───────────────────────────────────────────────────────────
+// ─── PDF EXPORT ───────────────────────────────────────────────────────────────
+function exportarPDF() {
+    const btn = document.getElementById('btn-export-pdf');
+    if (btn) { btn.textContent = 'Generating PDF...'; btn.disabled = true; }
+
+    setTimeout(() => {
+        try {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+
+            // ── Colour palette ──
+            const C = {
+                bg:      [15,  23,  42],   // #0f172a
+                card:    [22,  34,  58],   // slightly lighter navy
+                card2:   [28,  42,  70],   // alternating row
+                accent:  [56,  189, 248],  // cyan
+                green:   [16,  185, 129],
+                yellow:  [251, 191, 36],
+                purple:  [129, 140, 248],
+                white:   [241, 245, 249],
+                muted:   [148, 163, 184],
+                border:  [51,  65,  85],
+                dark:    [10,  16,  30],
+            };
+
+            const W = 210, H = 297, M = 14;
+            const INNER = W - M * 2;
+            let y = 0;
+            let pageNum = 1;
+
+            // ── Fill entire page background ──
+            function fillBackground() {
+                doc.setFillColor(...C.bg);
+                doc.rect(0, 0, W, H, 'F');
+            }
+            fillBackground();
+
+            // ── Add new page with background ──
+            function newPage() {
+                doc.addPage();
+                pageNum++;
+                fillBackground();
+                y = 20;
+            }
+
+            // ── Check if we need a new page ──
+            function checkPage(needed = 20) {
+                if (y + needed > H - 18) newPage();
+            }
+
+            // ── Draw header band ──
+            function drawHeader() {
+                // Top accent bar
+                doc.setFillColor(...C.accent);
+                doc.rect(0, 0, W, 3, 'F');
+
+                // Header background
+                doc.setFillColor(...C.dark);
+                doc.rect(0, 3, W, 30, 'F');
+
+                // Logo text
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(22);
+                doc.setTextColor(...C.accent);
+                doc.text('EnergyCalc', M, 18);
+
+                // Subtitle
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(...C.muted);
+                doc.text('Energy Audit Phase 3  |  Simulation Report', M, 25);
+
+                // Date right-aligned
+                doc.setFontSize(8);
+                doc.text('Generated: ' + new Date().toLocaleString('en-GB'), W - M, 25, { align: 'right' });
+
+                // Separator line
+                doc.setDrawColor(...C.accent);
+                doc.setLineWidth(0.4);
+                doc.line(M, 32, W - M, 32);
+
+                y = 40;
+            }
+
+            // ── Section title bar ──
+            function sectionTitle(title, color = C.accent) {
+                checkPage(14);
+                doc.setFillColor(...color);
+                doc.roundedRect(M, y, INNER, 8, 1, 1, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(8.5);
+                doc.setTextColor(...C.dark);
+                doc.text(title.toUpperCase(), M + 4, y + 5.5);
+                y += 11;
+            }
+
+            // ── Table row (alternating) ──
+            let rowIdx = 0;
+            function resetRows() { rowIdx = 0; }
+
+            function tableRow(label, value, valueColor = C.white, highlight = false) {
+                checkPage(9);
+                const bg = highlight ? [30, 50, 80] : (rowIdx % 2 === 0 ? C.card : C.card2);
+                doc.setFillColor(...bg);
+                doc.rect(M, y, INNER, 8, 'F');
+
+                // Left border accent if highlight
+                if (highlight) {
+                    doc.setFillColor(...C.accent);
+                    doc.rect(M, y, 2, 8, 'F');
+                }
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(8.5);
+                doc.setTextColor(...C.muted);
+                doc.text(label, M + 5, y + 5.5);
+
+                doc.setFont('helvetica', 'bold');
+                doc.setTextColor(...valueColor);
+                doc.text(String(value), W - M - 3, y + 5.5, { align: 'right' });
+
+                rowIdx++;
+                y += 8;
+            }
+
+            // ── Total / summary row ──
+            function totalRow(label, value, color = C.yellow) {
+                checkPage(11);
+                doc.setFillColor(...C.dark);
+                doc.rect(M, y, INNER, 10, 'F');
+                doc.setDrawColor(...color);
+                doc.setLineWidth(0.3);
+                doc.rect(M, y, INNER, 10, 'S');
+
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.setTextColor(...color);
+                doc.text(label, M + 5, y + 6.8);
+                doc.text(String(value), W - M - 3, y + 6.8, { align: 'right' });
+                y += 13;
+            }
+
+            // ── Spacer ──
+            function gap(mm = 5) { y += mm; }
+
+            // ── Status badge row ──
+            function statusRow(label, ok) {
+                checkPage(10);
+                const color = ok ? C.green : C.yellow;
+                doc.setFillColor(...C.card);
+                doc.rect(M, y, INNER, 9, 'F');
+                doc.setFillColor(...color);
+                doc.roundedRect(M + 3, y + 2, 5, 5, 1, 1, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(9);
+                doc.setTextColor(...color);
+                doc.text(label, M + 11, y + 6);
+                y += 11;
+            }
+
+            // ══════════════════════════════════════
+            // PAGE 1
+            // ══════════════════════════════════════
+            drawHeader();
+
+            // ── Section 1: Parameters ──
+            sectionTitle('Simulation Parameters', C.accent);
+            resetRows();
+            const hores     = document.getElementById('input-hores')?.value || '1800';
+            const preuElect = document.getElementById('input-preu-elect')?.value || '0.18';
+            const aiguaM3   = document.getElementById('input-aigua-m3')?.value || '150';
+            const preuAigua = document.getElementById('input-preu-aigua')?.value || '2.50';
+
+            tableRow('Teaching Hours / Year',            hores + ' h');
+            tableRow('Energy Price',                     preuElect + ' EUR/kWh');
+            tableRow('Monthly Water Consumption',        aiguaM3 + ' m3/month');
+            tableRow('Water Price',                      preuAigua + ' EUR/m3');
+            gap(6);
+
+            // ── Section 2: Consumption Results ──
+            const base = window._baseCosts;
+            if (base) {
+                sectionTitle('Simulated Consumption Results', C.accent);
+                resetRows();
+                tableRow('Electricity  -  Term Consumption',  (base.totElecKwh ? base.totElecKwh.toFixed(0) : '-') + ' kWh',  C.accent);
+                tableRow('Electricity  -  Term Cost',         base.elec.toFixed(2) + ' EUR',                                    C.white);
+                tableRow('Water  -  Term Consumption',        (base.totAiguaM3 ? base.totAiguaM3.toFixed(1) : '-') + ' m3',    C.accent);
+                tableRow('Water  -  Term Cost',               base.aigua.toFixed(2) + ' EUR',                                   C.white);
+                tableRow('Consumables  -  Term Cost',         base.consu.toFixed(2) + ' EUR',                                   C.purple);
+                tableRow('Cleaning  -  Term Cost',            base.neteja.toFixed(2) + ' EUR',                                  C.green);
+                gap(2);
+                totalRow('TOTAL TERM COST', base.total.toFixed(2) + ' EUR', C.yellow);
+                gap(4);
+            }
+
+            // ── Section 3: Reduction Plan ──
+            const red = window._reductionState;
+            if (red) {
+                sectionTitle('Reduction Plan Results', C.green);
+                resetRows();
+                tableRow('Actions Active',          red.accionsActives + ' actions selected');
+                tableRow('Energy Reduction',         '-' + (red.redElec * 100).toFixed(0) + '%',    C.yellow);
+                tableRow('Water Reduction',          '-' + (red.redAigua * 100).toFixed(0) + '%',   C.accent);
+                tableRow('Consumables Reduction',    '-' + (red.redConsu * 100).toFixed(0) + '%',   C.purple);
+                tableRow('Cleaning Reduction',       '-' + (red.redNeteja * 100).toFixed(0) + '%',  C.green);
+                gap(2);
+                totalRow('TOTAL REDUCTION',            '-' + red.pctReduccio.toFixed(1) + '%',         C.green);
+                totalRow('ESTIMATED SAVINGS (term)',   '-' + red.estalviFromPct.toFixed(2) + ' EUR',   C.green);
+                if (base) totalRow('NEW ESTIMATED TERM COST', (base.total - red.estalviFromPct).toFixed(2) + ' EUR', C.accent);
+                gap(3);
+                statusRow(
+                    red.pctReduccio >= 30
+                        ? 'Target -30% ACHIEVED'
+                        : 'Target -30% in progress  (' + red.pctReduccio.toFixed(1) + '% of 30% reached)',
+                    red.pctReduccio >= 30
+                );
+                gap(6);
+            }
+
+            // ── Section 4: Active Actions ──
+            const activeActions = ACCIONS_REDUCCIO.filter(acc => {
+                const cb = document.getElementById(acc.id);
+                return cb && cb.checked;
+            });
+            if (activeActions.length > 0) {
+                checkPage(14 + activeActions.length * 9);
+                sectionTitle('Active Reduction Actions  (' + activeActions.length + ' selected)', C.purple);
+
+                // Table header
+                doc.setFillColor(...C.dark);
+                doc.rect(M, y, INNER, 7, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(7.5);
+                doc.setTextColor(...C.muted);
+                doc.text('ACTION', M + 5, y + 5);
+                doc.text('SDG', M + 115, y + 5);
+                doc.text('YEAR', M + 133, y + 5);
+                doc.text('IMPACT', M + 155, y + 5);
+                y += 7;
+                resetRows();
+
+                activeActions.forEach(acc => {
+                    checkPage(9);
+                    const bg = rowIdx % 2 === 0 ? C.card : C.card2;
+                    doc.setFillColor(...bg);
+                    doc.rect(M, y, INNER, 8, 'F');
+
+                    // Category colour dot
+                    const dotCol = acc.color === 'accent' ? C.accent
+                                 : acc.color === 'yellow' ? C.yellow
+                                 : acc.color === 'purple' ? C.purple : C.green;
+                    doc.setFillColor(...dotCol);
+                    doc.circle(M + 4, y + 4, 1.5, 'F');
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(8);
+                    doc.setTextColor(...C.white);
+                    const shortName = acc.nom.length > 52 ? acc.nom.substring(0, 51) + '...' : acc.nom;
+                    doc.text(shortName, M + 8, y + 5.5);
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(7.5);
+                    doc.setTextColor(...dotCol);
+                    doc.text('SDG ' + acc.ods, M + 115, y + 5.5);
+                    doc.setTextColor(...C.muted);
+                    doc.text(acc.any, M + 133, y + 5.5);
+                    const pct = ((acc.impacte[acc.categoria] || 0) * 100).toFixed(0);
+                    doc.setTextColor(...dotCol);
+                    doc.text('-' + pct + '% ' + acc.categoria, M + 155, y + 5.5);
+
+                    rowIdx++;
+                    y += 8;
+                });
+            }
+
+            // ── Footer on every page ──
+            const pageCount = doc.internal.getNumberOfPages();
+            for (let i = 1; i <= pageCount; i++) {
+                doc.setPage(i);
+
+                // Bottom bar
+                doc.setFillColor(...C.dark);
+                doc.rect(0, H - 14, W, 14, 'F');
+                doc.setDrawColor(...C.border);
+                doc.setLineWidth(0.3);
+                doc.line(M, H - 14, W - M, H - 14);
+
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(7);
+                doc.setTextColor(...C.muted);
+                doc.text('EnergyCalc  |  Energy Audit Phase 3  |  Data from declassified invoices  |  SDG 3 - 6 - 7 - 12', M, H - 7);
+                doc.setTextColor(...C.accent);
+                doc.text('Page ' + i + ' of ' + pageCount, W - M, H - 7, { align: 'right' });
+            }
+
+            const fecha = new Date().toISOString().slice(0, 10);
+            doc.save(`EnergyCalc_Audit_${fecha}.pdf`);
+
+        } catch(e) {
+            console.error('PDF export error:', e);
+            alert('Error generating PDF. Please ensure jsPDF has loaded correctly.');
+        } finally {
+            if (btn) { btn.innerHTML = '<span>PDF</span> Export Current Data to PDF'; btn.disabled = false; }
+        }
+    }, 120);
+}
+
+// ─── INITIALISATION ───────────────────────────────────────────────────────────
 window.onload = () => {
     cargarDatosJSON();
     calcularF3();
@@ -850,6 +1153,5 @@ window.onload = () => {
     const sec = document.getElementById('estrategia');
     if (sec) observer.observe(sec);
 
-    // Renderitzar calculadora de reducció un cop els costos base estiguin calculats
     setTimeout(() => renderReductionCalculator(), 100);
 };

@@ -1,141 +1,150 @@
 <!DOCTYPE html>
-<html lang="ca">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoCalc | ITB Leaks Auditoria</title>
+    <title>EcoCalc | Energy Audit Phase 3</title>
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <header>
         <nav class="navbar">
-            <div class="logo">ITB<span>LEAKS</span></div>
+            <div class="logo">Energy<span>Calc</span></div>
             <ul class="nav-links">
-                <li><a href="#data-cleaning">Data Cleaning</a></li>
-                <li><a href="#calc">Calculadora F3</a></li>
-                <li><a href="#reduccio-calc">Pla de Reducció</a></li>
-                <li><a href="#estrategia">Cronograma</a></li>
+                <li><a href="#data-cleaning">Key Indicators</a></li>
+                <li><a href="#calc">Efficiency Calculator</a></li>
+                <li><a href="#reduccio-calc">Reduction Plan</a></li>
+                <li><a href="#estrategia">Timeline</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
         <section id="hero">
-            <h1>Auditoria Energètica <span class="gradient-text">Fase 3</span></h1>
-            <p>Anàlisi basat en factures desclassificades d'aigua, energia i consumibles.</p>
+            <h1>Energy Audit <span class="gradient-text">Phase 3</span></h1>
+            <p>Analysis based on declassified invoices for water, energy and consumables.</p>
         </section>
 
         <section id="data-cleaning" class="container">
-            <h2>Indicadors Clau (Fase 1.2)</h2>
+            <h2>Key Indicators (Phase 1.2)</h2>
             <div id="grid-asg" class="results-grid"></div>
         </section>
 
         <section id="calc" class="container">
             <div class="card-input">
-                <h3>Calculadora d'Eficiència</h3>
-                <p class="calc-desc">Ajusta els paràmetres del centre per simular el consum anual amb estacionalitat real.</p>
+                <h3>Efficiency Calculator</h3>
+                <p class="calc-desc">Adjust the centre parameters to simulate annual consumption with real seasonality.</p>
                 <div class="input-grid">
                     <div class="group">
-                        <label>Hores Lectives / Any</label>
+                        <label>Teaching Hours / Year</label>
                         <input type="number" id="input-hores" value="1800" min="1">
-                        <span class="input-hint">Base per calcular el consum elèctric</span>
+                        <span class="input-hint">Base for calculating electricity consumption</span>
                     </div>
                     <div class="group">
-                        <label>Preu Energia (€/kWh)</label>
+                        <label>Energy Price (€/kWh)</label>
                         <input type="number" id="input-preu-elect" value="0.18" step="0.01" min="0.01">
-                        <span class="input-hint">Tarifa elèctrica actual del centre</span>
+                        <span class="input-hint">Current electricity tariff of the centre</span>
                     </div>
                     <div class="group">
-                        <label>Consum Mensual Aigua (m³/mes)</label>
+                        <label>Monthly Water Consumption (m³/month)</label>
                         <input type="number" id="input-aigua-m3" value="150" min="1">
-                        <span class="input-hint">Consum mig mensual de l'edifici</span>
+                        <span class="input-hint">Average monthly consumption of the building</span>
                     </div>
                     <div class="group">
-                        <label>Preu Aigua (€/m³)</label>
+                        <label>Water Price (€/m³)</label>
                         <input type="number" id="input-preu-aigua" value="2.50" step="0.10" min="0.01">
-                        <span class="input-hint">Tarifa municipal vigent</span>
+                        <span class="input-hint">Current municipal tariff</span>
                     </div>
                 </div>
                 <div id="input-error" class="input-error" style="display:none;"></div>
-                <button onclick="calcularF3()" class="btn-calc">Simular Tendències i Reducció</button>
+                <button onclick="calcularF3()" class="btn-calc">Simulate Trends & Reduction</button>
             </div>
 
             <div id="results-f3" class="results-grid"></div>
 
             <div id="chart-container" style="display:none;" class="chart-card">
-                <h4>EVOLUCIÓ MENSUAL — ELECTRICITAT (kWh) · AIGUA (m³) · COST TOTAL (€)</h4>
+                <h4>MONTHLY EVOLUTION — ELECTRICITY (kWh) · WATER (m³) · TOTAL COST (€)</h4>
                 <canvas id="chartElec" height="110"></canvas>
             </div>
         </section>
 
-        <!-- ── CALCULADORA PLA DE REDUCCIÓ ── -->
+        <!-- ── REDUCTION PLAN CALCULATOR ── -->
         <section id="reduccio-calc" class="container">
-            <h2>Calculadora de Reducció <span class="tag-title">(Objectiu −30% en 3 anys)</span></h2>
+            <h2>Reduction Calculator <span class="tag-title">(Target −30% in 3 years)</span></h2>
             <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:2rem">
-                Selecciona quines accions vols implementar i veu en temps real com evolucionen els costos i la reducció assolida per cada combinació.
+                Select which actions you want to implement and see in real time how costs evolve and the reduction achieved for each combination.
             </p>
             <div id="reduction-calc-container"></div>
         </section>
 
         <section id="estrategia" class="container">
-            <h2>Cronograma <span class="tag-title">(Resum d'accions per any)</span></h2>
+            <h2>Timeline <span class="tag-title">(Summary of actions by year)</span></h2>
 
             <div class="progress-section">
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span>💧 Any 1 — Tall automàtic d'aigua nocturna</span>
+                        <span>💧 Year 1 — Automatic overnight water shut-off</span>
                         <span class="progress-pct" id="pct1">0%</span>
                     </div>
                     <div class="progress-track">
                         <div class="progress-fill pfill-accent" id="fill1" data-target="40"></div>
                     </div>
-                    <p class="progress-desc">Eliminant la fuga de 193 L/h s'estalvien <strong id="estalvi-aigua-text">—</strong> m³/any i <strong id="estalvi-aigua-eur">—</strong> €/any · <span class="ods-badge ods-6">ODS 6 Aigua neta</span></p>
+                    <p class="progress-desc">Eliminating the 193 L/h leak saves <strong id="estalvi-aigua-text">—</strong> m³/year and <strong id="estalvi-aigua-eur">—</strong> €/year · <span class="ods-badge ods-6">SDG 6 Clean Water</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span>⚡ Any 1–2 — Substitució circuits elèctrics (F046)</span>
+                        <span>⚡ Year 1–2 — Electrical circuit replacement (F046)</span>
                         <span class="progress-pct" id="pct2">0%</span>
                     </div>
                     <div class="progress-track">
                         <div class="progress-fill pfill-yellow" id="fill2" data-target="30"></div>
                     </div>
-                    <p class="progress-desc">Optimització elèctrica del 10% · Inversió ja realitzada: <strong>2.548,02 €</strong> · Estalvi estimat: <strong id="estalvi-elec-eur">—</strong> €/curs · <span class="ods-badge ods-7">ODS 7 Energia</span></p>
+                    <p class="progress-desc">10% electrical optimisation · Investment already made: <strong>2,548.02 €</strong> · Estimated savings: <strong id="estalvi-elec-eur">—</strong> €/term · <span class="ods-badge ods-7">SDG 7 Energy</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span>♻️ Any 1–3 — Economia Circular de consumibles (F036)</span>
+                        <span>♻️ Year 1–3 — Circular Economy of consumables (F036)</span>
                         <span class="progress-pct" id="pct3">0%</span>
                     </div>
                     <div class="progress-track">
                         <div class="progress-fill pfill-purple" id="fill3" data-target="20"></div>
                     </div>
-                    <p class="progress-desc">Ús de recanvis i paper reciclat · Estalvi estimat: <strong id="estalvi-consu-eur">—</strong> €/any · <span class="ods-badge ods-12">ODS 12 Consum responsable</span></p>
+                    <p class="progress-desc">Use of refills and recycled paper · Estimated savings: <strong id="estalvi-consu-eur">—</strong> €/year · <span class="ods-badge ods-12">SDG 12 Responsible Consumption</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
-                        <span>🧼 Any 2 — Neteja a granel i reducció d'envasos (F055)</span>
+                        <span>🧼 Year 2 — Bulk cleaning and packaging reduction (F055)</span>
                         <span class="progress-pct" id="pct4">0%</span>
                     </div>
                     <div class="progress-track">
                         <div class="progress-fill pfill-green" id="fill4" data-target="10"></div>
                     </div>
-                    <p class="progress-desc">Cost actual neteja: <strong>750,26 €/mes</strong> · Reducció envasos plàstic amb compra a granel · <span class="ods-badge ods-3">ODS 3 Salut</span></p>
+                    <p class="progress-desc">Current cleaning cost: <strong>750.26 €/month</strong> · Reduction of plastic containers with bulk purchasing · <span class="ods-badge ods-3">SDG 3 Health</span></p>
                 </div>
             </div>
 
             <p style="font-size:0.82rem;color:var(--text-muted);text-align:center;margin-top:0.5rem">
-                💡 Detall complet de les accions i la seva simulació a la secció <a href="#reduccio-calc" style="color:var(--accent);text-decoration:none">Calculadora de Reducció ↑</a>
+                💡 Full details of actions and their simulation in the <a href="#reduccio-calc" style="color:var(--accent);text-decoration:none">Reduction Calculator ↑</a> section
             </p>
+        </section>
+
+        <!-- ── PDF EXPORT BUTTON ── -->
+        <section class="container" style="text-align:center; padding-top:1rem; padding-bottom:3rem;">
+            <button onclick="exportarPDF()" class="btn-export-pdf" id="btn-export-pdf">
+                <span>📄</span> Export Current Data to PDF
+            </button>
+            <p style="margin-top:0.8rem; font-size:0.78rem; color:var(--text-muted);">Exports all visible indicators, simulation results and reduction plan to a PDF report.</p>
         </section>
     </main>
 
     <footer>
-        <div class="footer-logo">ITB<span>LEAKS</span></div>
-        <p>Auditoria Energètica Fase 3 · Institut Tecnològic de Barcelona</p>
-        <p style="margin-top:0.3rem">Dades basades en factures desclassificades · ODS 3 · 6 · 7 · 12</p>
+        <div class="footer-logo">Energy<span>Calc</span></div>
+        <p>Energy Audit Phase 3 · Technological Institute of Barcelona</p>
+        <p style="margin-top:0.3rem">Data based on declassified invoices · SDG 3 · 6 · 7 · 12</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="./js/calculator.js"></script>
 </body>
 </html>
