@@ -34,28 +34,122 @@
             <div class="card-input">
                 <h3>Efficiency Calculator</h3>
                 <p class="calc-desc">Adjust the centre parameters to simulate annual consumption with real seasonality.</p>
-                <div class="input-grid">
-                    <div class="group">
-                        <label>Teaching Hours / Year</label>
-                        <input type="number" id="input-hores" value="1800" min="1">
-                        <span class="input-hint">Base for calculating electricity consumption</span>
+                
+                <!-- ⚡ ELECTRICITY SECTION -->
+                <div class="calc-section">
+                    <div class="calc-section-header">
+                        <span class="icon">⚡</span>
+                        <h4>Electricity Parameters</h4>
                     </div>
-                    <div class="group">
-                        <label>Energy Price (€/kWh)</label>
-                        <input type="number" id="input-preu-elect" value="0.18" step="0.01" min="0.01">
-                        <span class="input-hint">Current electricity tariff of the centre</span>
-                    </div>
-                    <div class="group">
-                        <label>Monthly Water Consumption (m³/month)</label>
-                        <input type="number" id="input-aigua-m3" value="150" min="1">
-                        <span class="input-hint">Average monthly consumption of the building</span>
-                    </div>
-                    <div class="group">
-                        <label>Water Price (€/m³)</label>
-                        <input type="number" id="input-preu-aigua" value="2.50" step="0.10" min="0.01">
-                        <span class="input-hint">Current municipal tariff</span>
+                    <div class="input-grid">
+                        <div class="group">
+                            <label>Teaching Hours / Year</label>
+                            <input type="number" id="input-hores" value="1800" min="1">
+                            <span class="input-hint">Base for calculating electricity consumption</span>
+                        </div>
+                        <div class="group">
+                            <label>Energy Price (€/kWh)</label>
+                            <input type="number" id="input-preu-elect" value="0.18" step="0.01" min="0.01">
+                            <span class="input-hint">Current electricity tariff of the centre</span>
+                        </div>
                     </div>
                 </div>
+
+                <!-- 💧 WATER SECTION -->
+                <div class="calc-section">
+                    <div class="calc-section-header">
+                        <span class="icon">💧</span>
+                        <h4>Water Parameters</h4>
+                    </div>
+                    <div class="input-grid">
+                        <div class="group">
+                            <label>Monthly Water Consumption (m³/month)</label>
+                            <input type="number" id="input-aigua-m3" value="150" min="1">
+                            <span class="input-hint">Average monthly consumption of the building</span>
+                        </div>
+                        <div class="group">
+                            <label>Water Price (€/m³)</label>
+                            <input type="number" id="input-preu-aigua" value="2.50" step="0.10" min="0.01">
+                            <span class="input-hint">Current municipal tariff</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ♻️ CONSUMABLES SECTION -->
+                <div class="calc-section">
+                    <div class="calc-section-header">
+                        <span class="icon">♻️</span>
+                        <h4>Consumables Parameters</h4>
+                    </div>
+                    <div class="input-grid">
+                        <div class="group">
+                            <label>Marker Refills (quantity/year)</label>
+                            <input type="number" id="input-recanvis" value="170" min="0">
+                            <span class="input-hint">Annual consumption of marker refills</span>
+                        </div>
+                        <div class="group">
+                            <label>Marker Price (€/unit)</label>
+                            <input type="number" id="input-preu-recanvi" value="0.71" step="0.01" min="0">
+                            <span class="input-hint">Cost per marker refill unit</span>
+                        </div>
+                        <div class="group">
+                            <label>A4 Paper (reams/year)</label>
+                            <input type="number" id="input-paper" value="100" min="0">
+                            <span class="input-hint">Annual paper consumption in reams</span>
+                        </div>
+                        <div class="group">
+                            <label>Paper Price (€/ream)</label>
+                            <input type="number" id="input-preu-paper" value="5.47" step="0.01" min="0">
+                            <span class="input-hint">Cost per ream of paper</span>
+                        </div>
+                        <div class="group">
+                            <label>Pilot Markers (quantity/year)</label>
+                            <input type="number" id="input-pilot" value="115" min="0">
+                            <span class="input-hint">Annual consumption of pilot markers</span>
+                        </div>
+                        <div class="group">
+                            <label>Pilot Price (€/unit)</label>
+                            <input type="number" id="input-preu-pilot" value="0.89" step="0.01" min="0">
+                            <span class="input-hint">Cost per pilot marker unit</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🧼 CLEANING SECTION -->
+                <div class="calc-section">
+                    <div class="calc-section-header">
+                        <span class="icon">🧼</span>
+                        <h4>Cleaning Parameters</h4>
+                    </div>
+                    <div class="input-grid">
+                        <div class="group">
+                            <label>Monthly Cleaning Cost (€/month)</label>
+                            <input type="number" id="input-neteja-mes" value="750.26" step="0.01" min="0">
+                            <span class="input-hint">Current monthly cleaning service cost</span>
+                        </div>
+                        <div class="group">
+                            <label>Bulk Soap (liters/year)</label>
+                            <input type="number" id="input-soap-liters" value="15" min="0">
+                            <span class="input-hint">Annual consumption of bulk soap</span>
+                        </div>
+                        <div class="group">
+                            <label>Soap Price (€/container)</label>
+                            <input type="number" id="input-preu-soap" value="8.50" step="0.01" min="0">
+                            <span class="input-hint">Cost per soap container</span>
+                        </div>
+                        <div class="group">
+                            <label>Paper Towels (packs/year)</label>
+                            <input type="number" id="input-towels" value="10" min="0">
+                            <span class="input-hint">Annual consumption of paper towel packs</span>
+                        </div>
+                        <div class="group">
+                            <label>Towel Pack Price (€/pack)</label>
+                            <input type="number" id="input-preu-towels" value="18.25" step="0.01" min="0">
+                            <span class="input-hint">Cost per paper towel pack</span>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="input-error" class="input-error" style="display:none;"></div>
                 <button onclick="calcularF3()" class="btn-calc">Simulate Trends & Reduction</button>
             </div>
@@ -89,7 +183,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-accent" id="fill1" data-target="40"></div>
                     </div>
-                    <p class="progress-desc">Eliminating the 193 L/h leak saves <strong id="estalvi-aigua-text">—</strong> m³/year and <strong id="estalvi-aigua-eur">—</strong> €/year · <span class="ods-badge ods-6">SDG 6 Clean Water</span></p>
+                    <p class="progress-desc">Eliminating the 193 L/h leak saves <strong id="estalvi-aigua-text">—</strong> m³/year and <strong id="estalvi-aigua-eur">—</strong> €/year · <span class="ods-badge ods-6">SDG 6</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
@@ -99,7 +193,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-yellow" id="fill2" data-target="30"></div>
                     </div>
-                    <p class="progress-desc">10% electrical optimisation · Investment already made: <strong>2,548.02 €</strong> · Estimated savings: <strong id="estalvi-elec-eur">—</strong> €/term · <span class="ods-badge ods-7">SDG 7 Energy</span></p>
+                    <p class="progress-desc">10% electrical optimisation · Investment already made: <strong>2,548.02 €</strong> · Estimated savings: <strong id="estalvi-elec-eur">—</strong> €/year · <span class="ods-badge ods-7">SDG 7</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
@@ -109,7 +203,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-purple" id="fill3" data-target="20"></div>
                     </div>
-                    <p class="progress-desc">Use of refills and recycled paper · Estimated savings: <strong id="estalvi-consu-eur">—</strong> €/year · <span class="ods-badge ods-12">SDG 12 Responsible Consumption</span></p>
+                    <p class="progress-desc">Use of refills and recycled paper · Estimated savings: <strong id="estalvi-consu-eur">—</strong> €/year · <span class="ods-badge ods-12">SDG 12</span></p>
                 </div>
                 <div class="progress-item">
                     <div class="progress-label">
@@ -119,7 +213,7 @@
                     <div class="progress-track">
                         <div class="progress-fill pfill-green" id="fill4" data-target="10"></div>
                     </div>
-                    <p class="progress-desc">Current cleaning cost: <strong>750.26 €/month</strong> · Reduction of plastic containers with bulk purchasing · <span class="ods-badge ods-3">SDG 3 Health</span></p>
+                    <p class="progress-desc">Current cleaning cost: <strong>750.26 €/month</strong> · Reduction of plastic containers with bulk purchasing · <span class="ods-badge ods-3">SDG 3</span></p>
                 </div>
             </div>
 
