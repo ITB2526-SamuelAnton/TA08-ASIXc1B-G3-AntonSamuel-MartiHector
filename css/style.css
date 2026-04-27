@@ -60,9 +60,41 @@ h2 { padding-bottom: 15px; }
     margin-bottom: 1.5rem; margin-top: -0.5rem;
 }
 
+/* ── CALC SECTIONS ── */
+.calc-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.calc-section:last-of-type {
+    border-bottom: none;
+}
+
+.calc-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid rgba(255,255,255,0.12);
+}
+
+.calc-section-header .icon {
+    font-size: 1.3rem;
+}
+
+.calc-section-header h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
 .input-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
 }
 
@@ -436,7 +468,7 @@ footer a { color: var(--accent); text-decoration: none; }
 }
 
 @media (max-width: 900px) {
-    .input-grid { grid-template-columns: repeat(2, 1fr); }
+    .input-grid { grid-template-columns: 1fr; }
     .accions-grid { grid-template-columns: 1fr; }
     .saving-breakdown { gap: 0.6rem; }
 }
